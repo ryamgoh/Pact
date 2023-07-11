@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "galactic-app",
+    "slug": "galactic-app",
+    "orientation": "portrait"
+  }
+}

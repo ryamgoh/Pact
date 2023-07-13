@@ -24,7 +24,6 @@ export default function Layout() {
   if (!fontsLoaded) {
     // The native splash screen will stay visible for as long as there
     // are `<SplashScreen />` components mounted. This component can be nested.
-
     return <SplashScreen />;
   }
 

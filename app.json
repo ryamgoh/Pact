@@ -4,8 +4,14 @@
     "web": {
       "bundler": "metro"
     },
-    "name": "galactic-app",
-    "slug": "galactic-app",
-    "orientation": "portrait"
+    "name": "Pact",
+    "slug": "Pact",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    }
   }
 }

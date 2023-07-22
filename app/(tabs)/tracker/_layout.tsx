@@ -1,11 +1,9 @@
 import { Stack } from "expo-router";
 
-const NewsLayout = () => {
+export default function Layout() {
   return (
-    <Stack>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ headerTitle: "Tracker" }} />
     </Stack>
   );
-};
-
-export default NewsLayout;
+}

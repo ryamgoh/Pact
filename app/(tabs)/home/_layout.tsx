@@ -5,12 +5,11 @@ import { LargeLogo, LogoHeader, SmallLogo } from "../../../components/logos";
 export default function Layout() {
   return (
     <>
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="index"
           options={{
-            // headerTitle: "Welcome Home",
-            headerTitle: (props) => <LogoHeader />,
+            headerTitle: "Hello World",
           }}
         />
         <Stack.Screen

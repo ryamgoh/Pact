@@ -7,12 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@expo-google-fonts/poppins": "^0.2.3",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@types/react": "~18.0.27",
     "expo": "^48.0.7",
     "expo-constants": "~14.2.1",
     "expo-font": "~11.1.1",
+    "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.2.0",
     "expo-splash-screen": "~0.18.1",
@@ -32,8 +32,7 @@
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-web": "~0.18.7",
-    "typescript": "^4.9.4",
-    "expo-linear-gradient": "~12.1.2"
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { LargeLogo, LogoHeader, SmallLogo } from "../../../components/logos";
+import { LargeLogo, LogoHeader, SmallLogo } from "../../../components/UI/logos";
 
 export default function Layout() {
   return (

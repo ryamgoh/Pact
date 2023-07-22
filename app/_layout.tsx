@@ -1,25 +1,14 @@
 import { SplashScreen, Stack } from "expo-router";
 
-import {
-  useFonts,
-  Poppins_100Thin,
-  Poppins_200ExtraLight,
-  Poppins_300Light,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_600SemiBold,
-  Poppins_700Bold,
-  Poppins_800ExtraBold,
-  Poppins_900Black,
-} from "@expo-google-fonts/poppins";
-import { LogoHeader } from "../components/logos";
+import { useFonts } from "expo-font";
+import { LogoHeader } from "../components/UI/logos";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
-    Poppins_700Bold,
-    Poppins_400Regular,
-    Poppins_300Light,
-    Poppins_100Thin,
+    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Medium": require("../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-Bold": require("../assets/fonts/Poppins-Medium.ttf"),
+    "SpaceMono-Regular": require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   if (!fontsLoaded) {

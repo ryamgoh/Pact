@@ -8,15 +8,16 @@ import {
   View,
 } from "react-native";
 import { AuthStore, appSignOut } from "../../../store";
+import { FONT } from "../../../constants";
 
-const Tab2Index = () => {
+const ProfilePage = () => {
   const router = useRouter();
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontFamily: "Poppins_400Regular" }}>
+      <Text style={{ fontFamily: FONT.bold }}>
         {AuthStore.getRawState().user?.email}
       </Text>
-      <Text style={{ fontFamily: "Poppins_700Bold" }}>
+      <Text style={{ fontFamily: FONT.bold }}>
         {AuthStore.getRawState().user?.displayName}
       </Text>
       <Button
@@ -50,7 +51,7 @@ const Tab2Index = () => {
       >
         <Text
           style={{
-            fontFamily: "Poppins_700Bold",
+            fontFamily: FONT.bold,
             color: "white",
           }}
         >
@@ -60,4 +61,4 @@ const Tab2Index = () => {
     </View>
   );
 };
-export default Tab2Index;
+export default ProfilePage;

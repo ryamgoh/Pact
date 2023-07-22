@@ -5,7 +5,7 @@ export default function Layout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="index"
-        options={{ headerShown: true, headerTitle: "Settings" }}
+        options={{ headerShown: true, headerTitle: "Chats" }}
       />
     </Stack>
   );

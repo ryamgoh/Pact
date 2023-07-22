@@ -1,7 +1,7 @@
 import { SafeAreaView, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
 
-export default function Details() {
+const Details = () => {
   const router = useRouter();
   return (
     <SafeAreaView
@@ -17,4 +17,6 @@ export default function Details() {
       </Text>
     </SafeAreaView>
   );
-}
+};
+
+export default Details;

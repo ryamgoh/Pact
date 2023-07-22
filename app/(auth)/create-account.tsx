@@ -12,9 +12,7 @@ export default function CreateAccount() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Stack.Screen
-        options={{ title: "Create Account", headerLeft: () => <></> }}
-      />
+      <Stack.Screen options={{ title: "Create Account" }} />
       <View>
         <Text style={styles.label}>Email</Text>
         <TextInput

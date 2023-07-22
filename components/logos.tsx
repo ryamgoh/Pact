@@ -15,8 +15,10 @@ const SmallLogo = () => {
 const LogoHeader = () => {
   return (
     <View style={styles.container}>
-      <images.logo height={30} width={30} />
-      <Text> Pact</Text>
+      <Image
+        source={images.logoHeader}
+        style={{ height: 40, width: 100, resizeMode: "contain" }}
+      />
     </View>
   );
 };

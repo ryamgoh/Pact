@@ -1,41 +1,51 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, ImageResizeMode } from "react-native";
 import React from "react";
 import { images } from "../../constants";
 
+interface LogoProps {
+  height: string | number | undefined;
+  width: string | number | undefined;
+  resizeMode?: ImageResizeMode | undefined;
+}
+
+const Logo = (props: LogoProps) => {
+  return (
+    <Image
+      source={images.logo}
+      style={{
+        height: props.height,
+        width: props.width,
+        resizeMode: props.resizeMode,
+      }}
+    />
+  );
+};
+
 const LargeLogo = () => {
-  // return <Image source={images.logo} style={styles.logo} />;
-  return <images.logo height={120} width={120} />;
+  return (
+    <Image
+      source={images.logo}
+      style={{ height: 100, width: 100, resizeMode: "contain" }}
+    />
+  );
 };
 
 const SmallLogo = () => {
-  // return <Image source={images.logo} style={styles.tinyLogo} />;
-  return <images.logo height={20} width={20} />;
+  return (
+    <Image
+      source={images.logo}
+      style={{ height: 40, width: 40, resizeMode: "contain" }}
+    />
+  );
 };
 
 const LogoHeader = () => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={images.logoHeader}
-        style={{ height: 40, width: 100, resizeMode: "contain" }}
-      />
-    </View>
+    <Image
+      source={images.logoHeader}
+      style={{ height: 40, width: 100, resizeMode: "contain" }}
+    />
   );
 };
 
-export { LargeLogo, SmallLogo, LogoHeader };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  // tinyLogo: {
-  //   width: 50,
-  //   height: 50,
-  // },
-  // logo: {
-  //   width: 100,
-  //   height: 100,
-  // },
-});
+export { LargeLogo, SmallLogo, LogoHeader, Logo };

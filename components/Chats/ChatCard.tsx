@@ -19,7 +19,7 @@ const ChatCard = () => {
             resizeMode: "contain",
             height: 60,
             width: 60,
-            borderRadius: 1000,
+            borderRadius: 1000, // This is done so that the image is a circle for any size LOL
           }}
         />
         <View

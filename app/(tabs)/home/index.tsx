@@ -1,6 +1,6 @@
 import { Link, Redirect, Stack } from "expo-router";
 import { View, SafeAreaView } from "react-native";
-import { LargeLogo, SmallLogo } from "../../../components/logos";
+import { LargeLogo, SmallLogo } from "../../../components/UI/logos";
 
 const HomePage = () => {
   return (

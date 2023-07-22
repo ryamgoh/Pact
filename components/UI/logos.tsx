@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import React from "react";
-import { images } from "../constants";
+import { images } from "../../constants";
 
 const LargeLogo = () => {
   // return <Image source={images.logo} style={styles.logo} />;

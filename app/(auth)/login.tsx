@@ -10,7 +10,7 @@ import { AuthStore, appSignIn } from "../../store";
 import { Stack, useRouter } from "expo-router";
 import { useRef } from "react";
 import { COLORS } from "../../constants";
-import { LargeLogo } from "../../components/logos";
+import { LargeLogo } from "../../components/UI/logos";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -30,6 +30,8 @@ export default function LogIn() {
       }}
     >
       <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
         <LargeLogo />
         <View>
           <Text style={styles.label}>Email</Text>

@@ -7,6 +7,7 @@ const TabsLayout = () => {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="home"
     >
       <Tabs.Screen
         name="chats"
@@ -23,17 +24,17 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: () => <Text>⚙️</Text>,
-        }}
-      />
-      <Tabs.Screen
         name="tracker"
         options={{
           title: "Tracker",
           tabBarIcon: () => <Text>📰</Text>,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: () => <Text>⚙️</Text>,
         }}
       />
     </Tabs>

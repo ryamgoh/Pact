@@ -11,7 +11,7 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="chats"
         options={{
-          title: "chats",
+          title: "Chats",
           tabBarIcon: () => <Text>🏪</Text>,
         }}
       />

@@ -12,6 +12,7 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black,
 } from "@expo-google-fonts/poppins";
+import { LogoHeader } from "../components/logos";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -27,5 +28,12 @@ export default function Layout() {
     return <SplashScreen />;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerTitle: (props) => <LogoHeader />,
+      }}
+    />
+  );
 }

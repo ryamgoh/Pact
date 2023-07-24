@@ -2,6 +2,7 @@ import { SplashScreen, Stack } from "expo-router";
 
 import { useFonts } from "expo-font";
 import { LogoHeader } from "../components/UI/logos";
+import { COLORS } from "../constants/theme";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -22,6 +23,7 @@ export default function Layout() {
       screenOptions={{
         headerShown: true,
         headerTitle: (props) => <LogoHeader />,
+        headerStyle: { backgroundColor: COLORS.bgColor },
       }}
     />
   );

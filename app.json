@@ -12,6 +12,10 @@
       "image": "./assets/PactSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#C22323",
+      "translucent": false
     }
   }
 }

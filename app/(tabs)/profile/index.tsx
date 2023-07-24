@@ -6,14 +6,21 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
 } from "react-native";
 import { AuthStore, appSignOut } from "../../../store";
 import { FONT } from "../../../constants";
+import Styled from "../../../styles/container";
+import ProfileCard from "../../../components/Profile/ProfileCard";
 
 const ProfilePage = () => {
   const router = useRouter();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <ScrollView
+      style={Styled.MainScrollableCanvas}
+      contentContainerStyle={{ alignItems: "center" }}
+    >
+      <ProfileCard />
       <Text style={{ fontFamily: FONT.bold }}>
         {AuthStore.getRawState().user?.email}
       </Text>
@@ -58,7 +65,7 @@ const ProfilePage = () => {
           Button
         </Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 };
 export default ProfilePage;

@@ -1,11 +1,15 @@
 import { Tabs } from "expo-router";
 import { Text } from "react-native";
+import { COLORS } from "../../constants";
 
 const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: COLORS.bgColor,
+        },
       }}
       initialRouteName="home"
     >

@@ -4,7 +4,22 @@ import { FONT, images, COLORS } from "../../constants";
 import HorizontalRule from "../General/HorizontalRule";
 import icons from "../../constants/icons";
 import GrayDot from "../General/GrayDot";
-const ChatCard = ({ profilePhoto, name, chatStatus, lastSeen, streaks }) => {
+
+interface ChatCardProps {
+  profilePhoto: string;
+  name: string;
+  chatStatus: string;
+  lastSeen: string;
+  streaks?: number;
+}
+
+const ChatCard = ({
+  profilePhoto,
+  name,
+  chatStatus,
+  lastSeen,
+  streaks,
+}: ChatCardProps) => {
   return (
     <>
       <View style={styles.cardContainer}>
@@ -43,7 +58,7 @@ const ChatCard = ({ profilePhoto, name, chatStatus, lastSeen, streaks }) => {
               {name}
             </Text>
             <View
-              style={{ flexDirection: "row", gap: "4px", alignItems: "center" }}
+              style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
             >
               <Image source={icons.chatStatusIcon} style={styles.iconStyle} />
               <Text

@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     flexDirection: "column",
+    backgroundColor: "white",
   },
 });
 

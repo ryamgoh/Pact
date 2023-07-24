@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, Image, ImageResizeMode } from "react-native";
 import React from "react";
 import { images } from "../../constants";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface LogoProps {
   height: string | number | undefined;
@@ -41,11 +42,29 @@ const SmallLogo = () => {
 
 const LogoHeader = () => {
   return (
-    <Image
-      source={images.logoHeader}
-      style={{ height: 40, width: 100, resizeMode: "contain" }}
-    />
+    <>
+      <LinearGradient
+        colors={["#FED5CC", "#FEE2DC", "#FFF1EF"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.linearGradient}
+      >
+        <Image
+          source={images.logoHeader}
+          style={{ height: 40, width: 100, resizeMode: "contain" }}
+        />
+      </LinearGradient>
+    </>
   );
 };
 
 export { LargeLogo, SmallLogo, LogoHeader, Logo };
+
+// Later on in your styles..
+const styles = StyleSheet.create({
+  linearGradient: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+});

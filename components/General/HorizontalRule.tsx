@@ -1,14 +1,29 @@
 import React from "react";
 import { View } from "react-native";
 
-const HorizontalRule = () => {
+interface HorizontalRuleInterface {
+  width: string;
+  height: string | number;
+  position: string;
+  marginTop: number;
+}
+
+const HorizontalRule = ({
+  width,
+  height,
+  position,
+  marginTop,
+}: HorizontalRuleInterface) => {
   return (
     <View
       style={{
         height: 1,
         backgroundColor: "#DDDDDD",
         marginVertical: 10,
-        width: "100%",
+        width,
+        height,
+        alignSelf: position,
+        marginTop,
       }}
     />
   );

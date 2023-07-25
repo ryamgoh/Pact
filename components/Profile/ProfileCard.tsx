@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import React from "react";
-import { COLORS, FONT } from "../../constants";
+import { COLORS, FONT, SIZES } from "../../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { icons } from "../../constants";
 
@@ -15,9 +15,10 @@ const ProfileCard = ({ profilePhoto }) => {
       <View
         style={{
           flexDirection: "column",
-          justifyContent: "space-between",
+          justifyContent: "center",
+          gap: SIZES.xSmall,
           height: "100%",
-          width: 120,
+          width: 160,
         }}
       >
         <Image
@@ -25,21 +26,23 @@ const ProfileCard = ({ profilePhoto }) => {
             uri: profilePhoto,
           }}
           style={{
-            height: 120,
-            width: 120,
+            height: 160,
+            width: 160,
             borderRadius: 1000,
           }}
         />
-        <ScrollView>
-          <Text
-            style={{
-              fontFamily: FONT.bold,
-              fontSize: 20,
-            }}
-          >
-            @usersdsdsddsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd
-          </Text>
-        </ScrollView>
+        <View>
+          <ScrollView horizontal>
+            <Text
+              style={{
+                fontFamily: FONT.bold,
+                fontSize: SIZES.medium,
+              }}
+            >
+              @RyannGoh
+            </Text>
+          </ScrollView>
+        </View>
       </View>
       <View
         style={{
@@ -47,26 +50,17 @@ const ProfileCard = ({ profilePhoto }) => {
           height: "100%",
           flexDirection: "column",
           justifyContent: "space-between",
+          gap: 5,
         }}
       >
-        <ScrollView style={{}}>
-          <Text>ProfileCarddddd</Text>
+        <ScrollView>
+          <Text>Ryann Goh</Text>
+          <Text>22 y/o</Text>
           <Text>
-            ProfileCardddddProfileCardddddProfileCardddddProfileCarddddd
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+            repellat quaerat similique obcaecati deleniti odio eos ad veniam
+            unde consectetur.
           </Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
-          <Text>ProfileCarddddd</Text>
         </ScrollView>
         <Image
           source={icons.editButton}
@@ -82,12 +76,12 @@ export default ProfileCard;
 const styles = StyleSheet.create({
   cardContainer: {
     width: "100%",
-    height: 240,
+    height: 300,
     padding: 15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 20,
-    backgroundColor: COLORS.gray2,
+    gap: 10,
   },
 });

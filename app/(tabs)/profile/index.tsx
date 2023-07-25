@@ -12,19 +12,32 @@ import { AuthStore, appSignOut } from "../../../store";
 import { FONT } from "../../../constants";
 import Styled from "../../../styles/container";
 import ProfileCard from "../../../components/Profile/ProfileCard";
+import HorizontalRule from "../../../components/General/HorizontalRule";
+import ProfileStoryCards from "../../../components/Profile/ProfileStoryCards";
 
 const ProfilePage = () => {
   const router = useRouter();
   return (
     <ScrollView
       style={Styled.MainScrollableCanvas}
-      contentContainerStyle={{ alignItems: "center" }}
+      contentContainerStyle={{ alignItems: "flex-start" }}
     >
       <ProfileCard
         profilePhoto={
           "https://images.unsplash.com/photo-1689888154384-00e7f1e191f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80"
         }
       />
+      <HorizontalRule />
+      <Text
+        style={{
+          fontFamily: FONT.bold,
+          fontSize: 20,
+          fontWeight: "800",
+        }}
+      >
+        Past Achievements
+      </Text>
+      <ProfileStoryCards />
       <Text style={{ fontFamily: FONT.bold }}>
         {AuthStore.getRawState().user?.email}
       </Text>

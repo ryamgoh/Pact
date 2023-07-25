@@ -1,11 +1,11 @@
 import React from "react";
-import { View } from "react-native";
+import { FlexAlignType, View } from "react-native";
 
 interface HorizontalRuleInterface {
-  width: string;
-  height: string | number;
-  position: string;
-  marginTop: number;
+  width: number | string | undefined;
+  height: number | string | undefined;
+  position: "auto" | FlexAlignType | undefined;
+  marginTop?: number | string | undefined;
 }
 
 const HorizontalRule = ({
@@ -19,10 +19,9 @@ const HorizontalRule = ({
       style={{
         height: height,
         backgroundColor: "#DDDDDD",
-        marginVertical: 10,
         width: width,
         alignSelf: position,
-        marginTop,
+        marginTop: marginTop,
       }}
     />
   );

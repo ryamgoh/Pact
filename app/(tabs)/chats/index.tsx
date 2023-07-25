@@ -6,6 +6,7 @@ import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
 import Styled from "../../../styles/container";
 import chatsJson from "./chats.json";
 import HorizontalRule from "../../../components/General/HorizontalRule";
+import { Link } from "expo-router";
 
 const ChatsPage = () => {
   const allChats = chatsJson;
@@ -14,7 +15,7 @@ const ChatsPage = () => {
   return (
     <ScrollView
       style={Styled.MainScrollableCanvas}
-      contentContainerStyle={{ alignItems: "center" }}
+      contentContainerStyle={{ alignItems: "center", gap: 20 }}
     >
       <Text
         style={{
@@ -32,6 +33,8 @@ const ChatsPage = () => {
         ? allChats.map((chat) => (
             <>
               <ChatCard
+                key={chat.id}
+                id={chat.id}
                 profilePhoto={chat.profilePhoto}
                 name={chat.name}
                 chatStatus={chat.chatStatus}
@@ -41,7 +44,7 @@ const ChatsPage = () => {
               <HorizontalRule
                 width="100%"
                 height={1}
-                position="center"
+                position={"auto"}
                 marginTop={0}
               />
             </>
@@ -51,6 +54,8 @@ const ChatsPage = () => {
             .map((chat) => (
               <>
                 <ChatCard
+                  key={chat.id}
+                  id={chat.id}
                   profilePhoto={chat.profilePhoto}
                   name={chat.name}
                   chatStatus={chat.chatStatus}
@@ -60,7 +65,7 @@ const ChatsPage = () => {
                 <HorizontalRule
                   width="100%"
                   height={1}
-                  position="center"
+                  position={"auto"}
                   marginTop={0}
                 />
               </>

@@ -35,7 +35,7 @@ const ProfileCard = ({ profilePhoto }) => {
           <ScrollView horizontal>
             <Text
               style={{
-                fontFamily: FONT.bold,
+                fontFamily: FONT.medium,
                 fontSize: SIZES.medium,
               }}
             >
@@ -54,8 +54,22 @@ const ProfileCard = ({ profilePhoto }) => {
         }}
       >
         <ScrollView>
-          <Text>Ryann Goh</Text>
-          <Text>22 y/o</Text>
+          <Text
+            style={{
+              fontFamily: FONT.medium,
+              fontSize: SIZES.medium,
+            }}
+          >
+            Ryann Goh
+          </Text>
+          <Text
+            style={{
+              fontFamily: FONT.medium,
+              fontSize: SIZES.medium,
+            }}
+          >
+            22 y/o
+          </Text>
           <Text>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
             repellat quaerat similique obcaecati deleniti odio eos ad veniam

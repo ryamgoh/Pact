@@ -1,8 +1,9 @@
-import { useRootNavigationState } from "expo-router";
-import { useRouter, useSegments } from "expo-router";
-import { AuthStore } from "../store";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
+import { useRouter, useSegments } from "expo-router";
+
+import { AuthStore } from "../store";
+import { useRootNavigationState } from "expo-router";
 
 const Index = () => {
   const segments = useSegments();

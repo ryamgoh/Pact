@@ -4,8 +4,9 @@ import { View } from "react-native";
 interface HorizontalRuleInterface {
   width: string;
   height: string | number;
-  position: string;
+  position?: string;
   marginTop: number;
+  backgroundColor?: string;
 }
 
 const HorizontalRule = ({
@@ -13,17 +14,19 @@ const HorizontalRule = ({
   height,
   position,
   marginTop,
+  backgroundColor,
 }: HorizontalRuleInterface) => {
   return (
     <View
       style={{
         height: 1,
-        backgroundColor: "#DDDDDD",
+        backgroundColor,
         marginVertical: 10,
         width,
         height,
         alignSelf: position,
         marginTop,
+        zIndex: 0,
       }}
     />
   );

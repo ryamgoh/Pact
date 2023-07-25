@@ -86,7 +86,13 @@ const ChatCard = ({
         </View>
         <Image source={icons.cameraIcon} style={{ width: 30, height: 30 }} />
       </View>
-      <HorizontalRule width="100%" height={1} position="center" marginTop={0} />
+      <HorizontalRule
+        width="100%"
+        height={1}
+        position="center"
+        marginTop={0}
+        backgroundColor="#DDDDDD"
+      />
     </>
   );
 };

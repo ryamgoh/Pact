@@ -35,6 +35,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "^1.0.0",
+    "react-native-toast-message": "^2.1.6",
     "react-native-web": "~0.18.7",
     "typescript": "^4.9.4"
   },

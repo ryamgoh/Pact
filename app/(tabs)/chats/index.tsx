@@ -1,14 +1,15 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { FONT } from "../../../constants";
 import ChatCard from "../../../components/Chats/ChatCard";
+import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
 import Styled from "../../../styles/container";
 import chatsJson from "./chats.json";
-
-// import { ScrollView } from "react-native";
+import HorizontalRule from "../../../components/General/HorizontalRule";
 
 const ChatsPage = () => {
   const allChats = chatsJson;
+  const [filterText, setFilterText] = useState("");
 
   return (
     <ScrollView
@@ -25,15 +26,45 @@ const ChatsPage = () => {
       >
         Chat
       </Text>
-      {allChats.map((chat) => (
-        <ChatCard
-          profilePhoto={chat.profilePhoto}
-          name={chat.name}
-          chatStatus={chat.chatStatus}
-          lastSeen={chat.lastSeen}
-          streaks={chat.streaks}
-        />
-      ))}
+      <ChatsSearchBar filterText={filterText} setFilterText={setFilterText} />
+
+      {filterText === ""
+        ? allChats.map((chat) => (
+            <>
+              <ChatCard
+                profilePhoto={chat.profilePhoto}
+                name={chat.name}
+                chatStatus={chat.chatStatus}
+                lastSeen={chat.lastSeen}
+                streaks={chat.streaks}
+              />
+              <HorizontalRule
+                width="100%"
+                height={1}
+                position="center"
+                marginTop={0}
+              />
+            </>
+          ))
+        : allChats
+            .filter((chat) => chat.name.includes(filterText))
+            .map((chat) => (
+              <>
+                <ChatCard
+                  profilePhoto={chat.profilePhoto}
+                  name={chat.name}
+                  chatStatus={chat.chatStatus}
+                  lastSeen={chat.lastSeen}
+                  streaks={chat.streaks}
+                />
+                <HorizontalRule
+                  width="100%"
+                  height={1}
+                  position="center"
+                  marginTop={0}
+                />
+              </>
+            ))}
     </ScrollView>
   );
 };

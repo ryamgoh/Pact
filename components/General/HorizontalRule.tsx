@@ -17,11 +17,10 @@ const HorizontalRule = ({
   return (
     <View
       style={{
-        height: 1,
+        height: height,
         backgroundColor: "#DDDDDD",
         marginVertical: 10,
-        width,
-        height,
+        width: width,
         alignSelf: position,
         marginTop,
       }}

@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Image, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { useState } from "react";
 import Swiper from "react-native-deck-swiper";
 import { useRef } from "react";
@@ -14,10 +14,6 @@ interface SwipingScreenProps {
 const SwipingScreen: React.FC<SwipingScreenProps> = ({ candidateData }) => {
   const swipeRef = useRef(null);
   const [flip, setFlip] = useState(false);
-  const rotateCard = () => {
-    setFlip(!flip);
-  };
-  const rotate = { transform: "rotateY(180deg)" };
 
   return (
     <>

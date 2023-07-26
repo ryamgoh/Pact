@@ -26,68 +26,82 @@ const ChatCard = ({
   const router = useRouter();
 
   return (
-    <Pressable
-      style={styles.cardContainer}
-      onPress={() => router.push(`/chats/${id}`)}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          gap: 10,
-          alignItems: "center",
-          height: "100%",
-        }}
+    <>
+      <Pressable
+        style={styles.cardContainer}
+        onPress={() => router.push(`/chats/${id}`)}
       >
-        <Image
-          source={{
-            uri: profilePhoto,
-          }}
-          style={{
-            height: 60,
-            width: 60,
-            borderRadius: 1000,
-          }}
-        />
         <View
           style={{
-            flexDirection: "column",
+            flexDirection: "row",
+            gap: 10,
+            alignItems: "center",
             height: "100%",
-            justifyContent: "space-evenly",
           }}
         >
-          <Text
+          <Image
+            source={{
+              uri: profilePhoto,
+            }}
             style={{
-              fontFamily: FONT.bold,
-              fontSize: 20,
+              height: 60,
+              width: 60,
+              borderRadius: 1000,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "column",
+              height: "100%",
+              justifyContent: "space-evenly",
             }}
           >
-            {name}
-          </Text>
-          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-            <Image source={icons.chatStatusIcon} style={styles.iconStyle} />
             <Text
               style={{
-                fontSize: 10,
-                fontWeight: "bold",
-                color: COLORS.tertiary,
+                fontFamily: FONT.bold,
+                fontSize: 20,
               }}
             >
-              {chatStatus}
+              {name}
             </Text>
-            <GrayDot />
-            <Text style={{ fontSize: 10, color: COLORS.gray }}>{lastSeen}</Text>
-            <GrayDot />
-
-            {streaks && (
-              <Text style={{ fontSize: 10, fontWeight: "bold" }}>
-                {streaks}🔥
+            <View
+              style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
+            >
+              <Image source={icons.chatStatusIcon} style={styles.iconStyle} />
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  color: COLORS.tertiary,
+                }}
+              >
+                {chatStatus}
               </Text>
-            )}
+              <GrayDot />
+              <Text style={{ fontSize: 10, color: COLORS.gray }}>
+                {lastSeen}
+              </Text>
+              <GrayDot />
+
+              {streaks && (
+                <Text style={{ fontSize: 10, fontWeight: "bold" }}>
+                  {streaks}🔥
+                </Text>
+              )}
+            </View>
           </View>
         </View>
-      </View>
-      <Image source={icons.cameraIcon} style={{ width: 30, height: 30 }} />
-    </Pressable>
+        <HorizontalRule
+          width="100%"
+          height={1}
+          position="center"
+          marginTop={0}
+          backgroundColor="#DDDDDD"
+        />
+
+        <Image source={icons.cameraIcon} style={{ width: 30, height: 30 }} />
+      </Pressable>
+    </>
   );
 };
 

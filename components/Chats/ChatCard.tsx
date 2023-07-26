@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import React from "react";
 import { FONT, images, COLORS } from "../../constants";
-import HorizontalRule from "../General/HorizontalRule";
 import icons from "../../constants/icons";
 import GrayDot from "../General/GrayDot";
+import { useRouter } from "expo-router";
+// import HorizontalRule from "../General/HorizontalRule";
 
 interface ChatCardProps {
   profilePhoto: string;
@@ -11,6 +12,7 @@ interface ChatCardProps {
   chatStatus: string;
   lastSeen: string;
   streaks?: number;
+  id: number;
 }
 
 const ChatCard = ({
@@ -19,10 +21,16 @@ const ChatCard = ({
   chatStatus,
   lastSeen,
   streaks,
+  id,
 }: ChatCardProps) => {
+  const router = useRouter();
+
   return (
     <>
-      <View style={styles.cardContainer}>
+      <Pressable
+        style={styles.cardContainer}
+        onPress={() => router.push(`/chats/${id}`)}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -45,20 +53,19 @@ const ChatCard = ({
             style={{
               flexDirection: "column",
               height: "100%",
+              justifyContent: "space-evenly",
             }}
           >
             <Text
               style={{
                 fontFamily: FONT.bold,
                 fontSize: 20,
-                marginBottom: 8,
-                marginTop: 5,
               }}
             >
               {name}
             </Text>
             <View
-              style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
+              style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
             >
               <Image source={icons.chatStatusIcon} style={styles.iconStyle} />
               <Text
@@ -84,15 +91,16 @@ const ChatCard = ({
             </View>
           </View>
         </View>
+        <HorizontalRule
+          width="100%"
+          height={1}
+          position="center"
+          marginTop={0}
+          backgroundColor="#DDDDDD"
+        />
+
         <Image source={icons.cameraIcon} style={{ width: 30, height: 30 }} />
-      </View>
-      <HorizontalRule
-        width="100%"
-        height={1}
-        position="center"
-        marginTop={0}
-        backgroundColor="#DDDDDD"
-      />
+      </Pressable>
     </>
   );
 };
@@ -102,7 +110,6 @@ export default ChatCard;
 const styles = StyleSheet.create({
   cardContainer: {
     width: "100%",
-    marginVertical: 5,
     height: 80,
     padding: 10,
     flexDirection: "row",

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import React, { useRef, useState } from "react";
-import { FONT, SIZES, icons } from "../../constants";
+import { COLORS, FONT, SIZES, icons } from "../../constants";
 import { set } from "react-native-reanimated";
 
 const ChatsSearchBar = ({ filterText, setFilterText }) => {
@@ -8,8 +8,13 @@ const ChatsSearchBar = ({ filterText, setFilterText }) => {
     <View style={styles.cardContainer}>
       <Image source={icons.searchIcon} style={{ width: 20, height: 20 }} />
       <TextInput
-        style={{ flex: 1, fontFamily: FONT.regular, fontSize: SIZES.small }}
+        style={{
+          flex: 1,
+          fontFamily: FONT.regular,
+          fontSize: SIZES.small,
+        }}
         placeholder="Search"
+        placeholderTextColor={COLORS.gray}
         onChangeText={(text) => {
           setFilterText(text);
         }}

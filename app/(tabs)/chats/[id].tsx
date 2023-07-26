@@ -5,7 +5,7 @@ import chatsJson from "./chats.json";
 const ConversationPage = () => {
   const { id } = useSearchParams();
   // const chatData = chatsJson.filter((chat) => String(chat.id) === id);
-  const chatData = chatsJson.findIndex((chat) => chat.id === Number(id));
+  const chatData = chatsJson.filter((chat) => chat.id === Number(id));
 
   return (
     <View>

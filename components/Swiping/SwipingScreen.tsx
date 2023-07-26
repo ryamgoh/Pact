@@ -11,7 +11,7 @@ interface SwipingScreenProps {
   candidateData: cardDataInterface[];
 }
 
-const SwipingScreen: React.FC<SwipingScreenProps> = ({ candidateData }) => {
+const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
   const swipeRef = useRef(null);
   const [flip, setFlip] = useState(false);
 

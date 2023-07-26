@@ -62,12 +62,7 @@ const ChatsPage = () => {
                   lastSeen={chat.lastSeen}
                   streaks={chat.streaks}
                 />
-                <HorizontalRule
-                  width="100%"
-                  height={1}
-                  position={"auto"}
-                  marginTop={0}
-                />
+                <HorizontalRule width="100%" height={1} position={"auto"} />
               </>
             ))}
     </ScrollView>

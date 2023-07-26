@@ -84,7 +84,6 @@ const MilestoneTab = ({
           <View style={styles.modalContent}>
             <View>
               <Text style={styles.modalText}>{description}</Text>
-
               <Text style={styles.descriptionText}>{detailedDescription}</Text>
             </View>
             {/* Button to close the modal */}
@@ -99,6 +98,7 @@ const MilestoneTab = ({
 };
 
 export default MilestoneTab;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
     fontWeight: "bold",
-    textDecorationLine: true,
+    textDecorationLine: "underline",
     color: "#FF8D79",
   },
   descriptionText: {

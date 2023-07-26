@@ -1,8 +1,11 @@
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import { AuthStore, appSignUp } from "../../store";
 import { COLORS, FONT } from "../../constants";
 import { Stack, useRouter } from "expo-router";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
+import { LargerHeader } from "../../components/UI/logos";
+import Toast from "react-native-toast-message";
+import { createAccountErrorToast } from "../../components/UI/toast";
 import { useRef } from "react";
 
 export default function CreateAccount() {
@@ -14,8 +17,9 @@ export default function CreateAccount() {
   const usernameRef = useRef("");
 
   return (
-    <View style={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
-      {/* <Stack.Screen options={{ headerShown: true, title: "Create Account" }} /> */}
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Stack.Screen options={{ headerShown: false }} />
+      <LargerHeader />
       <Text style={{ fontFamily: FONT.medium, fontSize: 24, marginBottom: 16, marginTop: 30, }}>
         Create Account
       </Text>
@@ -90,14 +94,12 @@ export default function CreateAccount() {
           const resp = await appSignUp(
             emailRef.current,
             passwordRef.current,
-            // firstNameRef.current + " " + lastNameRef.current
             usernameRef.current,
           );
           if (resp?.user) {
-            router.replace("/frontProfileSetup");
+            router.replace("/success-creation");
           } else {
-            console.log(resp.error);
-            Alert.alert("Sign Up Error", resp.error?.message);
+            createAccountErrorToast();
           }
         }}
       >
@@ -113,8 +115,9 @@ export default function CreateAccount() {
         }}
         style={styles.cancelButton}
       >
-        Have an Account? <Text style={{textDecorationLine: "underline"}}>Login</Text>
+        Have an Account? <Text style={{textDecorationLine: "underline", fontFamily: FONT.medium}}>Login</Text>
       </Text>
+      <Toast />
     </View>
   );
 }
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   cancelButton: {
-    fontFamily: FONT.medium,
+    fontFamily: FONT.regular,
     margin: 8,
     padding: 8,
     borderRadius: 8,

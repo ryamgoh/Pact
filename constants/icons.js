@@ -5,7 +5,6 @@ import MoreInfoIcon from "../assets/icons/MoreInfoIcon.png";
 import pinIcon from "../assets/icons/PinIcon.png";
 import searchIcon from "../assets/icons/search.png";
 import filterIcon from "../assets/icons/filter.png";
-import searchIcon from "../assets/icons/search.png";
 import tickIcon from "../assets/icons/tick.png";
 
 export default {

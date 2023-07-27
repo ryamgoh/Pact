@@ -5,7 +5,10 @@ import icons from "../../constants/icons";
 import GrayDot from "../General/GrayDot";
 import { useRouter } from "expo-router";
 import HorizontalRule from "../General/HorizontalRule";
+<<<<<<< HEAD
 // import HorizontalRule from "../General/HorizontalRule";
+=======
+>>>>>>> 790d6b5744186769d8ebd6d6a18473853e87c249
 
 interface ChatCardProps {
   profilePhoto: string;
@@ -15,7 +18,6 @@ interface ChatCardProps {
   streaks?: number;
   id: number;
 }
-
 const ChatCard = ({
   profilePhoto = "https://i.imgur.com/1O1moj9.png",
   name = "Name",
@@ -25,6 +27,8 @@ const ChatCard = ({
   id,
 }: ChatCardProps) => {
   const router = useRouter();
+
+  console.log("chatcarddddd" + chatStatus);
 
   return (
     <>

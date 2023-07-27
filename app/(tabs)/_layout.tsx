@@ -1,6 +1,6 @@
+import { COLORS } from "../../constants";
 import { Tabs } from "expo-router";
 import { Text } from "react-native";
-import { COLORS } from "../../constants";
 
 const TabsLayout = () => {
   return (

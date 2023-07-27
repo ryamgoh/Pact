@@ -4,7 +4,7 @@ import { FONT, images, COLORS } from "../../constants";
 import icons from "../../constants/icons";
 import GrayDot from "../General/GrayDot";
 import { useRouter } from "expo-router";
-// import HorizontalRule from "../General/HorizontalRule";
+import HorizontalRule from "../General/HorizontalRule";
 
 interface ChatCardProps {
   profilePhoto: string;
@@ -14,7 +14,6 @@ interface ChatCardProps {
   streaks?: number;
   id: number;
 }
-
 const ChatCard = ({
   profilePhoto,
   name,
@@ -24,6 +23,8 @@ const ChatCard = ({
   id,
 }: ChatCardProps) => {
   const router = useRouter();
+
+  console.log("chatcarddddd" + chatStatus);
 
   return (
     <>
@@ -91,14 +92,6 @@ const ChatCard = ({
             </View>
           </View>
         </View>
-        <HorizontalRule
-          width="100%"
-          height={1}
-          position="center"
-          marginTop={0}
-          backgroundColor="#DDDDDD"
-        />
-
         <Image source={icons.cameraIcon} style={{ width: 30, height: 30 }} />
       </Pressable>
     </>

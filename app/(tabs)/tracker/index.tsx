@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Link } from "expo-router";
-
+import { GiftedChat } from "react-native-gifted-chat";
 const ListPage = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

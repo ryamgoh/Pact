@@ -25,6 +25,9 @@ export default function Layout() {
         headerTitle: (props) => <LogoHeader />,
         headerStyle: { backgroundColor: COLORS.bgColor },
       }}
-    />
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="match" />
+    </Stack>
   );
 }

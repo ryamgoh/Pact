@@ -1,50 +1,62 @@
 import { SafeAreaView } from "react-native";
 import SwipingScreen from "../../../components/Swiping/SwipingScreen";
-const DUMMY_DATA = [
-  {
-    id: 1,
-    firstName: "Sonny",
-    lastName: "Sangha",
+import { useState, useEffect } from "react";
+import { auth, database } from "../../../FirebaseConfig";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
-    photoUrl:
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
-    age: 27,
-    interest: "Basketball",
-    description:
-      "Big lakers fan here tryna level up my game. Hmu if you're interested",
-  },
-  {
-    id: 2,
-    firstName: "Elon",
-    lastName: "Musk",
-
-    photoUrl:
-      "https://plus.unsplash.com/premium_photo-1675129256093-a2a7705112e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
-    age: 27,
-    interest: "Basketball",
-    description:
-      "Big lakers fan here tryna level up my game. Hmu if you're interested",
-  },
-  {
-    id: 3,
-    firstName: "Mark",
-    lastName: "Zuckerberg",
-
-    photoUrl:
-      "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
-    age: 27,
-    interest: "Basketball",
-    description:
-      "Big lakers fan here tryna level up my game. Hmu if you're interested",
-  },
-];
+const collectionRef = collection(database, "users");
 
 const HomePage = () => {
+  const [profiles, setProfiles] = useState([]);
+
+  useEffect(() => {
+    let unsub;
+    const fetchCards = async () => {
+      const passes = await getDocs(
+        collection(database, "users", auth.currentUser.uid, "passes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+
+      const swipes = await getDocs(
+        collection(database, "users", auth.currentUser.uid, "swipes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+      const passedUserIds = passes.length > 0 ? passes : ["test"];
+      const swipedUserIds = swipes.length > 0 ? swipes : ["test"];
+      unsub = onSnapshot(
+        query(
+          collectionRef,
+          where("id", "not-in", [...passedUserIds, ...swipedUserIds])
+        ),
+        (snapshot) => {
+          setProfiles(
+            snapshot.docs
+              .filter((doc) => doc.id !== auth?.currentUser?.uid)
+              .map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+          );
+        }
+      );
+    };
+    fetchCards();
+    return () => {
+      // Clean up the snapshot listener when the component unmounts
+      unsub();
+    };
+  }, [database]);
+
+  console.log(profiles);
   return (
     <SafeAreaView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <SwipingScreen candidateData={DUMMY_DATA} />
+      <SwipingScreen candidateData={profiles} />
     </SafeAreaView>
   );
 };

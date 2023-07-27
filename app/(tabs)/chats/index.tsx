@@ -1,16 +1,36 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FONT } from "../../../constants";
 import ChatCard from "../../../components/Chats/ChatCard";
 import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
 import Styled from "../../../styles/container";
-import chatsJson from "./chats.json";
 import HorizontalRule from "../../../components/General/HorizontalRule";
-import { Link } from "expo-router";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { database, auth } from "../../../FirebaseConfig";
+import getMatchedUserInfo from "../../../lib/getMatchedUserInfo";
 
 const ChatsPage = () => {
-  const allChats = chatsJson;
+  const [matches, setMatches] = useState([]);
   const [filterText, setFilterText] = useState("");
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(database, "matches"),
+          where("usersMatched", "array-contains", auth.currentUser.uid)
+        ),
+        (snapshot) => {
+          setMatches(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }))
+          );
+        }
+      ),
+    []
+  );
 
   return (
     <ScrollView
@@ -22,45 +42,31 @@ const ChatsPage = () => {
           fontFamily: FONT.medium,
           fontSize: 24,
           fontWeight: "bold",
-          // textDecorationLine: "underline",
         }}
       >
         Chat
       </Text>
       <ChatsSearchBar filterText={filterText} setFilterText={setFilterText} />
 
-      {filterText === ""
-        ? allChats.map((chat) => (
-            <>
-              <ChatCard
-                key={chat.id}
-                id={chat.id}
-                profilePhoto={chat.profilePhoto}
-                name={chat.name}
-                chatStatus={chat.chatStatus}
-                lastSeen={chat.lastSeen}
-                streaks={chat.streaks}
-              />
-              <HorizontalRule
-                width="100%"
-                height={1}
-                position={"auto"}
-                marginTop={0}
-              />
-            </>
-          ))
-        : allChats
-            .filter((chat) => chat.name.includes(filterText))
-            .map((chat) => (
+      {filterText === "" ? (
+        matches ? (
+          matches.map((chat, index) => {
+            const chatInfo = getMatchedUserInfo(
+              chat.users,
+              auth.currentUser.uid
+            );
+
+            console.log("testing" + JSON.stringify(chatInfo));
+            return (
               <>
                 <ChatCard
-                  key={chat.id}
-                  id={chat.id}
-                  profilePhoto={chat.profilePhoto}
-                  name={chat.name}
-                  chatStatus={chat.chatStatus}
-                  lastSeen={chat.lastSeen}
-                  streaks={chat.streaks}
+                  key={index}
+                  id={index}
+                  profilePhoto={chatInfo.photoUrl}
+                  name={chatInfo.firstName}
+                  chatStatus={"New chat"}
+                  lastSeen={"Just now"}
+                  streaks={200}
                 />
                 <HorizontalRule
                   width="100%"
@@ -69,7 +75,44 @@ const ChatsPage = () => {
                   marginTop={0}
                 />
               </>
-            ))}
+            );
+          })
+        ) : (
+          <View>
+            <Text>No matches at the moment</Text>
+          </View>
+        )
+      ) : (
+        matches
+          .filter((chat) => {
+            const chatInfo = getMatchedUserInfo(
+              chat.users,
+              auth.currentUser.uid
+            );
+            return chatInfo.firstName.includes(filterText);
+          })
+          .map((chat, index) => {
+            return (
+              <>
+                <ChatCard
+                  key={index}
+                  id={index}
+                  profilePhoto={chat.photoUrl}
+                  name={chat.firstName}
+                  chatStatus={"New chat"}
+                  lastSeen={"Just now"}
+                  streaks={200}
+                />
+                <HorizontalRule
+                  width="100%"
+                  height={1}
+                  position={"auto"}
+                  marginTop={0}
+                />
+              </>
+            );
+          })
+      )}
     </ScrollView>
   );
 };

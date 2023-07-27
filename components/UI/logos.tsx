@@ -1,6 +1,5 @@
 import { Image, ImageResizeMode, StyleSheet, Text, View } from "react-native";
 
-import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { images } from "../../constants";
 
@@ -26,11 +25,11 @@ const Logo = (props: LogoProps) => {
 const LargerHeader = () => {
   return (
     <Image
-    source={images.logoHeader}
-    style={{ height: 80, width: 200, resizeMode: "contain" }}
+      source={images.logoHeader}
+      style={{ height: 80, width: 200, resizeMode: "contain" }}
     />
-  )
-}
+  );
+};
 
 const LargeLogo = () => {
   return (
@@ -59,10 +58,12 @@ const LogoHeader = () => {
     //     end={{ x: 1, y: 0 }}
     //     style={styles.linearGradient}
     //   >
+
     <Image
       source={images.logoHeader}
       style={{ height: 40, width: 100, resizeMode: "contain" }}
     />
+
     //   </LinearGradient>
     // </>
   );

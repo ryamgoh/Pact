@@ -21,9 +21,11 @@ import { useRouter } from "expo-router";
 interface SwipingScreenProps {
   candidateData: cardDataInterface[];
 }
-
 const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
+  //Create router for navigating to match screen
+  const router = useRouter();
   const swipeRef = useRef(null);
+
   const swipeLeft = async (cardIndex) => {
     if (!candidateData[cardIndex]) return;
     const userSwiped = candidateData[cardIndex];
@@ -33,6 +35,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
       userSwiped
     );
   };
+
   const swipeRight = async (cardIndex) => {
     if (!candidateData[cardIndex]) return;
     const userSwiped = candidateData[cardIndex];

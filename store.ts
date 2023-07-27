@@ -1,5 +1,10 @@
+import {
+  DocumentSnapshot,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { Store, registerInDevtools } from "pullstate";
-import { app, auth } from "./FirebaseConfig";
+import { app, auth, database } from "./FirebaseConfig";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -77,4 +82,18 @@ export const passwordResetEmail = async (email) => {
     return false;
   }
 };
+
+export const isNewUser = async () => {
+  try {
+    const resp = await getDoc(doc(database, "users", auth.currentUser.uid));
+    if (resp.exists()) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+}
+
 registerInDevtools({ AuthStore });

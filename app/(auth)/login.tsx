@@ -1,4 +1,4 @@
-import { AuthStore, appSignIn } from "../../store";
+import { AuthStore, appSignIn, isNewUser } from "../../store";
 import { COLORS, FONT } from "../../constants";
 import {
   SafeAreaView,
@@ -61,7 +61,7 @@ export default function LogIn() {
       onPress={async () => {
         const resp = await appSignIn(emailRef.current, passwordRef.current);
           if (resp?.user) {
-            router.replace("/(tabs)/home");
+            isNewUser() ? router.replace("/setup") : router.replace("/(tabs)/home"); 
           } else {
             loginErrorToast();
           }

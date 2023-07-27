@@ -1,12 +1,13 @@
 import { Store, registerInDevtools } from "pullstate";
+import { app, auth } from "./FirebaseConfig";
 import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth/";
-import { app, auth } from "./FirebaseConfig";
 
 export const AuthStore = new Store({
   isLoggedIn: false,
@@ -68,4 +69,12 @@ export const appSignUp = async (email, password, displayName) => {
   }
 };
 
+export const passwordResetEmail = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 registerInDevtools({ AuthStore });

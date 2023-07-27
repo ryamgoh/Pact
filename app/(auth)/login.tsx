@@ -1,32 +1,24 @@
+import { AuthStore, appSignIn } from "../../store";
+import { COLORS, FONT } from "../../constants";
 import {
-  Alert,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import { AuthStore, appSignIn } from "../../store";
-import { COLORS, FONT } from "../../constants";
 import { Stack, useRouter } from "expo-router";
 
 import { LargerHeader } from "../../components/UI/logos";
 import Toast from 'react-native-toast-message';
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { loginErrorToast } from "../../components/UI/toast";
 import { useRef } from "react";
 
 export default function LogIn() {
   const router = useRouter();
   const emailRef = useRef("");
   const passwordRef = useRef("");
-
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Did you forget your password?',
-      text2: 'Dont worry, we are here to help you! 👋',
-    });
-  }
 
   return (
   <SafeAreaView style={styles.container}>
@@ -48,6 +40,7 @@ export default function LogIn() {
           emailRef.current = text;
         }}
         style={styles.textInput}
+        autoComplete="off"
       />
     </View>
     <View>
@@ -56,6 +49,7 @@ export default function LogIn() {
         placeholder="Password"
         secureTextEntry={true}
         nativeID="password"
+        autoComplete="off"
         onChangeText={(text) => {
         passwordRef.current = text;
       }}
@@ -69,8 +63,7 @@ export default function LogIn() {
           if (resp?.user) {
             router.replace("/(tabs)/home");
           } else {
-            console.log(resp.error);
-            Alert.alert("Login Error", resp.error?.message);
+            loginErrorToast();
           }
         }}
     >
@@ -89,7 +82,7 @@ export default function LogIn() {
       </Text>
     </TouchableOpacity>
     <TouchableOpacity
-      onPress={showToast}
+      onPress={() => router.push("/forgot-password")}
     >
       <Text style={{ color: COLORS.black, textAlign: "center", fontFamily: FONT.regular, marginTop: 30 }}>
         Forgot Password?

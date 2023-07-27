@@ -51,8 +51,6 @@ const SmallLogo = () => {
 
 const LogoHeader = () => {
   return (
-<<<<<<< HEAD
-=======
     // <>
     //   <LinearGradient
     //     colors={["#FED5CC", "#FEE2DC", "#FFF1EF"]}
@@ -61,17 +59,13 @@ const LogoHeader = () => {
     //     style={styles.linearGradient}
     //   >
 
->>>>>>> 790d6b5744186769d8ebd6d6a18473853e87c249
     <Image
       source={images.logoHeader}
       style={{ height: 40, width: 100, resizeMode: "contain" }}
     />
-<<<<<<< HEAD
-=======
 
     //   </LinearGradient>
     // </>
->>>>>>> 790d6b5744186769d8ebd6d6a18473853e87c249
   );
 };
 

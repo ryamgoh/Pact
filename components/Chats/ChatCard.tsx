@@ -30,7 +30,9 @@ const ChatCard = ({
     <>
       <Pressable
         style={styles.cardContainer}
-        onPress={() => router.push(`/chats/${id}`)}
+        onPress={() =>
+          router.push({ pathname: `/chats/${id}`, params: { name } })
+        }
       >
         <View
           style={{

@@ -21,7 +21,6 @@ import { useRouter } from "expo-router";
 interface SwipingScreenProps {
   candidateData: cardDataInterface[];
 }
-
 const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
   //Create router for navigating to match screen
   const router = useRouter();

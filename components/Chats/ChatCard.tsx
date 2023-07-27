@@ -15,11 +15,11 @@ interface ChatCardProps {
   id: number;
 }
 const ChatCard = ({
-  profilePhoto,
-  name,
+  profilePhoto = "https://i.imgur.com/1O1moj9.png",
+  name = "Name",
   chatStatus,
   lastSeen,
-  streaks,
+  streaks = 0,
   id,
 }: ChatCardProps) => {
   const router = useRouter();

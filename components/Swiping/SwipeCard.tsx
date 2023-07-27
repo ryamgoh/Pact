@@ -30,7 +30,7 @@ const SwipeCard = ({ card }: { card: cardDataInterface }) => {
           <Text
             style={{
               marginTop: 4,
-              fontWeight: "medium",
+              fontWeight: "500",
               fontSize: 16,
             }}
           >

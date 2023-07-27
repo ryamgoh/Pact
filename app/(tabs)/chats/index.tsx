@@ -68,12 +68,7 @@ const ChatsPage = () => {
                   lastSeen={"Just now"}
                   streaks={200}
                 />
-                <HorizontalRule
-                  width="100%"
-                  height={1}
-                  position={"auto"}
-                  marginTop={0}
-                />
+                <HorizontalRule width="100%" height={1} position={"auto"} />
               </>
             );
           })

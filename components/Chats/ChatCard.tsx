@@ -5,10 +5,6 @@ import icons from "../../constants/icons";
 import GrayDot from "../General/GrayDot";
 import { useRouter } from "expo-router";
 import HorizontalRule from "../General/HorizontalRule";
-<<<<<<< HEAD
-// import HorizontalRule from "../General/HorizontalRule";
-=======
->>>>>>> 790d6b5744186769d8ebd6d6a18473853e87c249
 
 interface ChatCardProps {
   profilePhoto: string;

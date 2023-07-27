@@ -22,14 +22,11 @@ interface SwipingScreenProps {
   candidateData: cardDataInterface[];
 }
 
-<<<<<<< HEAD
 const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
-=======
-const SwipingScreen: React.FC<SwipingScreenProps> = ({ candidateData }) => {
   //Create router for navigating to match screen
   const router = useRouter();
->>>>>>> 790d6b5744186769d8ebd6d6a18473853e87c249
   const swipeRef = useRef(null);
+
   const swipeLeft = async (cardIndex) => {
     if (!candidateData[cardIndex]) return;
     const userSwiped = candidateData[cardIndex];
@@ -39,6 +36,7 @@ const SwipingScreen: React.FC<SwipingScreenProps> = ({ candidateData }) => {
       userSwiped
     );
   };
+
   const swipeRight = async (cardIndex) => {
     if (!candidateData[cardIndex]) return;
     const userSwiped = candidateData[cardIndex];

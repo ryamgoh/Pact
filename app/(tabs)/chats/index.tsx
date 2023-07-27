@@ -51,6 +51,8 @@ const ChatsPage = () => {
       {filterText === "" ? (
         matches ? (
           matches.map((chat, index) => {
+            const conversationId = chat.id;
+
             const chatInfo = getMatchedUserInfo(
               chat.users,
               auth.currentUser.uid
@@ -61,7 +63,7 @@ const ChatsPage = () => {
               <>
                 <ChatCard
                   key={index}
-                  id={index}
+                  id={conversationId}
                   profilePhoto={chatInfo.photoUrl}
                   name={chatInfo.firstName}
                   chatStatus={"New chat"}
@@ -87,11 +89,12 @@ const ChatsPage = () => {
             return chatInfo.firstName.includes(filterText);
           })
           .map((chat, index) => {
+            const conversationId = chat.id;
             return (
               <>
                 <ChatCard
                   key={index}
-                  id={index}
+                  id={conversationId}
                   profilePhoto={chat.photoUrl}
                   name={chat.firstName}
                   chatStatus={"New chat"}

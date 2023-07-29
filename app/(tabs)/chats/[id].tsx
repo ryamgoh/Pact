@@ -74,7 +74,6 @@ const ConversationPage = () => {
       setAvatarImage(user.data().photoUrl);
     };
     fetchMyAvatar();
-
     console.log(avatarImage);
   }, []);
 

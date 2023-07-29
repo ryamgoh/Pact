@@ -51,21 +51,10 @@ const SmallLogo = () => {
 
 const LogoHeader = () => {
   return (
-    // <>
-    //   <LinearGradient
-    //     colors={["#FED5CC", "#FEE2DC", "#FFF1EF"]}
-    //     start={{ x: 0, y: 0 }}
-    //     end={{ x: 1, y: 0 }}
-    //     style={styles.linearGradient}
-    //   >
-
     <Image
       source={images.logoHeader}
       style={{ height: 40, width: 100, resizeMode: "contain" }}
     />
-
-    //   </LinearGradient>
-    // </>
   );
 };
 

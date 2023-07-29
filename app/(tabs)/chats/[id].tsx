@@ -1,24 +1,23 @@
 import React, {
-  useState,
-  useLayoutEffect,
   useCallback,
   useEffect,
+  useLayoutEffect,
+  useState,
 } from "react";
-import { Stack } from "expo-router";
-
-import { GiftedChat } from "react-native-gifted-chat";
 import {
-  collection,
   addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
   orderBy,
   query,
-  onSnapshot,
-  getDoc,
-  doc,
 } from "firebase/firestore";
-
 import { auth, database } from "../../../FirebaseConfig";
-import { useSearchParams, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useSearchParams } from "expo-router";
+
+import { GiftedChat } from "react-native-gifted-chat";
+import { Stack } from "expo-router";
 
 const ConversationPage = () => {
   const { id: conversationId } = useSearchParams(); // Rename 'id' to 'receiverId'
@@ -54,13 +53,13 @@ const ConversationPage = () => {
   }, []);
 
   //Handles message sending
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback(async (messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
     // setMessages([...messages, ...messages]);
     const { _id, createdAt, text, user } = messages[0];
-    addDoc(collection(database, `chats/${conversationId}/messages`), {
+    await addDoc(collection(database, `chats/${conversationId}/messages`), {
       _id,
       createdAt,
       text,
@@ -75,6 +74,7 @@ const ConversationPage = () => {
     };
     fetchMyAvatar();
     console.log(avatarImage);
+    console.log(conversationId);
   }, []);
 
   return (

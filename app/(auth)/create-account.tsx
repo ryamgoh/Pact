@@ -14,7 +14,6 @@ export default function CreateAccount() {
   const firstNameRef = useRef("");
   const lastNameRef = useRef("");
   const passwordRef = useRef("");
-  const usernameRef = useRef("");
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -34,18 +33,6 @@ export default function CreateAccount() {
           nativeID="email"
           onChangeText={(text) => {
             emailRef.current = text;
-          }}
-          style={styles.textInput}
-        />
-      </View>
-      <View>
-        <Text style={styles.label}>Username</Text>
-        <TextInput
-          placeholder="Username"
-          autoComplete="off"
-          nativeID="username"
-          onChangeText={(text) => {
-            usernameRef.current = text;
           }}
           style={styles.textInput}
         />
@@ -94,7 +81,7 @@ export default function CreateAccount() {
           const resp = await appSignUp(
             emailRef.current,
             passwordRef.current,
-            usernameRef.current,
+            firstNameRef.current + " " + lastNameRef.current,
           );
           if (resp?.user) {
             router.replace("/success-creation");

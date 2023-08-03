@@ -1,3 +1,4 @@
+import { AcademicsPicker, EmptyPicker, InstrumentsPicker, SportsPicker } from "../../components/UI/dropdown";
 import {
   Alert,
   Button,
@@ -11,17 +12,42 @@ import {
 } from "react-native";
 import { COLORS, FONT } from "../../constants";
 import { Stack, useRouter } from "expo-router";
+import { useRef, useState } from "react";
 
 import { LargerHeader } from "../../components/UI/logos";
-import { useRef } from "react";
+import { Picker } from "@react-native-picker/picker";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { invalidSetupDetails } from "../../components/UI/toast";
+import { setupDetails } from "../../store";
 
 const Setup = () => {
   const router = useRouter();
   const username = useRef("");
   const age = useRef("");
-  const currentInterest = useRef("");
-  const category = useRef("");
+  const [category, setCategory] = useState("");
+  const [currentInterest, setCurrentInterest] = useState("");
   const gif = useRef("");
+
+  const createAccount = async () => {
+    try {
+      const data = {
+        age: age.current,
+        username: username.current,
+        category: category,
+        interest: currentInterest,
+        gif: gif.current,
+      }
+      const resp = await setupDetails(data);
+      if (resp) {
+        router.replace("/(tabs)/home");
+      } else {
+        invalidSetupDetails();
+      }
+    } catch (err) {
+      invalidSetupDetails();
+    }
+  }
+
   return (
     <ScrollView
     style={{}}
@@ -54,26 +80,33 @@ const Setup = () => {
         />
       </View>
       <View>
-        <Text style={styles.label}>Current Interest</Text>
-        <TextInput
-          placeholder=""
-          autoCapitalize="none"
-          nativeID="currentInterest"
-          onChangeText={text => currentInterest.current = text}
+        <Text style={styles.label}>Category</Text>
+        <Picker
+          selectedValue={category}
+          onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
           style={styles.textInput}
-          autoComplete="off"
-        />
+        >
+          <Picker.Item label="Select" value="" />
+          <Picker.Item label="Sports" value="Sports" />
+          <Picker.Item label="Academics" value="Academics" />
+          <Picker.Item label="Instruments" value="Instruments" />
+        </Picker>
       </View>
       <View>
-        <Text style={styles.label}>Category</Text>
-        <TextInput
-          placeholder=""
-          autoCapitalize="none"
-          nativeID="category"
-          onChangeText={text => category.current = text}
+        <Text style={styles.label}>Current Interest</Text>
+        <Picker
+          selectedValue={currentInterest}
+          onValueChange={(itemValue, itemIndex) => setCurrentInterest(itemValue)}
           style={styles.textInput}
-          autoComplete="off"
-        />
+        >
+          {category === "Sports"
+            ? SportsPicker
+            : category === "Academics"
+            ? AcademicsPicker
+            : category === "Instruments"
+            ? InstrumentsPicker
+            : EmptyPicker}
+        </Picker>
       </View>
       <View>
         <Text style={styles.label}>GIF</Text>
@@ -86,11 +119,12 @@ const Setup = () => {
           autoComplete="off"
         />
       </View>
-      <TouchableOpacity onPress={() => router.replace("/(tabs)/home")}>
+      <TouchableOpacity onPress={createAccount}>
         <Text style={styles.button}>
-          Create Account
+          Set up your details!
         </Text>
       </TouchableOpacity>
+      <Toast />
     </ScrollView>
   );
 };
@@ -105,6 +139,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     height: 40,
     marginBottom: 20,
+    backgroundColor: COLORS.white,
   },
   label: {
     fontFamily: FONT.medium,

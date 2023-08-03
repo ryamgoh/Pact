@@ -39,3 +39,13 @@ export const invalidEmailResetPassword = () => {
     visibilityTime: 2000,
   });
 }
+
+export const invalidSetupDetails = () => {
+  Toast.show({
+    type: 'error',
+    text1: 'Invalid Details',
+    text2: 'Please enter valid details',
+    autoHide: true,
+    visibilityTime: 2000,
+  });
+}

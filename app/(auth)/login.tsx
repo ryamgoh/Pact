@@ -61,7 +61,7 @@ export default function LogIn() {
       onPress={async () => {
         const resp = await appSignIn(emailRef.current, passwordRef.current);
           if (resp?.user) {
-            isNewUser() ? router.replace("/setup") : router.replace("/(tabs)/home"); 
+            await isNewUser() ? router.replace("/setup") : router.replace("/(tabs)/home"); 
           } else {
             loginErrorToast();
           }

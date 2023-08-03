@@ -16,6 +16,14 @@
     "androidStatusBar": {
       "backgroundColor": "#C22323",
       "translucent": false
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ]
   }
 }

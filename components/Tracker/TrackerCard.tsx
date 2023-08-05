@@ -34,7 +34,7 @@ const TrackerCard = ({
     <TouchableOpacity
       style={{ width: "100%" }}
       onPress={() =>
-        router.push({ pathname: `/tracker/${id}`, params: pactName })
+        router.push({ pathname: `/tracker/${id}`, params: { pactName } })
       }
     >
       <LinearGradient

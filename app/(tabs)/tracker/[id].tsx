@@ -1,6 +1,13 @@
 import { View, Text } from "react-native";
 import { Stack, useLocalSearchParams, useSearchParams } from "expo-router";
 import { COLORS } from "../../../constants";
+import React from "react";
+import SwipeCard, {
+  cardDataInterface,
+} from "../../../components/Swiping/SwipeCard";
+import SwipeCardBack from "../../../components/Swiping/SwipeCardBack";
+import FlipCard from "react-native-flip-card";
+import HorizontalRule from "../../../components/General/HorizontalRule";
 
 const NewsDetailsPage = () => {
   const { id } = useSearchParams();
@@ -8,7 +15,7 @@ const NewsDetailsPage = () => {
   const { pactName } = params;
 
   return (
-    <View>
+    <View style={{ paddingHorizontal: 10, paddingVertical: 40 }}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -19,7 +26,18 @@ const NewsDetailsPage = () => {
           headerTintColor: `#F96D5A`,
         }}
       />
-      <Text>My News: {id}</Text>
+      <View>
+        <FlipCard
+          friction={10}
+          perspective={1000}
+          flipHorizontal={true}
+          flipVertical={false}
+          clickable={true}
+        >
+          <SwipeCardBack />
+          <SwipeCardBack />
+        </FlipCard>
+      </View>
     </View>
   );
 };

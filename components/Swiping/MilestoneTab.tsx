@@ -14,6 +14,8 @@ const MilestoneTab = ({
   milestoneNumber,
   description,
   detailedDescription,
+  date,
+  completed,
 }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -22,45 +24,75 @@ const MilestoneTab = ({
   return (
     <View
       style={{
-        flexDirection: "column",
+        flexDirection: "row",
         alignItems: "center",
+        width: "100%",
+        height: 110,
+        justifyContent: "space-between",
       }}
     >
       <View
         style={{
-          borderRadius: 50,
-          width: 40,
-          height: 40,
-          backgroundColor: "#FEC89A",
           alignItems: "center",
           justifyContent: "center",
-          marginBottom: 14,
+          height: "100%",
         }}
       >
-        <Text
+        <View
           style={{
-            color: "white",
-            fontWeight: "bold",
-            fontSize: 20,
+            width: 3,
+            height: "100%",
+            position: "absolute",
+            backgroundColor: "white", // This can change color later!
+          }}
+        />
+        <View
+          style={{
+            borderRadius: 1000,
+            width: 70,
+            height: 70,
+            backgroundColor: !completed ? "#9F9A9A" : "#F96D5A",
+            borderWidth: 3, // This links to the line
+            borderColor: "white",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            zIndex: 1,
           }}
         >
-          {milestoneNumber}
-        </Text>
+          <Text
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              fontSize: 16,
+            }}
+          >
+            {milestoneNumber}
+          </Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 8,
+            }}
+          >
+            {date}
+          </Text>
+        </View>
       </View>
       <TouchableOpacity
         onPress={toggleModal}
         style={{
-          height: 70,
-          width: 100,
+          height: 90,
+          width: 240,
           backgroundColor: "white",
           borderRadius: 10,
-          padding: 8,
+          padding: 10,
         }}
       >
         <View
           style={{
             flexDirection: "column",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
             height: "100%",
           }}
         >

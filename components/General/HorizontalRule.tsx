@@ -7,6 +7,8 @@ interface HorizontalRuleInterface {
   position: "auto" | FlexAlignType | undefined;
   marginTop?: number | string | undefined;
   marginBottom?: number | string | undefined;
+  marginHorizontal?: number | string | undefined;
+  marginVertical?: number | string | undefined;
   backgroundColor?: ColorValue | undefined;
 }
 
@@ -14,9 +16,11 @@ const HorizontalRule = ({
   width,
   height,
   position,
+  marginHorizontal,
+  marginVertical,
   marginTop,
   marginBottom,
-  backgroundColor = "#DDDDDD",
+  backgroundColor = "white",
 }: HorizontalRuleInterface) => {
   return (
     <View
@@ -27,6 +31,8 @@ const HorizontalRule = ({
         alignSelf: position,
         marginTop: marginTop,
         marginBottom: marginBottom,
+        marginHorizontal: marginHorizontal,
+        marginVertical: marginVertical,
       }}
     />
   );

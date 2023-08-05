@@ -1,6 +1,7 @@
 import { AuthStore, appSignIn, isNewUser } from "../../store";
 import { COLORS, FONT } from "../../constants";
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Stack, useRouter } from "expo-router";
 
 import { LargerHeader } from "../../components/UI/logos";
@@ -15,7 +16,9 @@ export default function LogIn() {
   const passwordRef = useRef("");
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={[styles.container, { backgroundColor: "white" }]}
+    >
       <Stack.Screen options={{ headerShown: false }} />
       <LargerHeader />
       <Text
@@ -117,7 +120,7 @@ export default function LogIn() {
         </Text>
       </TouchableOpacity>
       <Toast />
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 

@@ -3,8 +3,9 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import HorizontalRule from "../General/HorizontalRule";
 import MilestoneTab from "./MilestoneTab";
-import { icons } from "../../constants";
+import { FONT, icons } from "../../constants";
 import TimelinePins from "./TimelinePins";
+import { ScrollView } from "react-native-gesture-handler";
 const SwipeCardBack = () => {
   return (
     <LinearGradient
@@ -15,59 +16,92 @@ const SwipeCardBack = () => {
           borderRadius: 20,
           position: "relative",
           flexDirection: "column",
-          paddingHorizontal: 10,
+          padding: 20,
+          justifyContent: "space-between",
         },
         styles.cardShadow,
       ]}
     >
-      <Text style={styles.titles}>My Milestones</Text>
-      <View style={{ position: "relative" }}>
-        <HorizontalRule
-          width="90%"
-          height={3}
-          position="center"
-          marginTop={35}
-          backgroundColor="#DDDDDD"
-        />
-        <View
+      <View style={styles.cardSection}>
+        {/* This is the top card */}
+        <Text
           style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            marginTop: -32,
-            width: "80%",
-            alignSelf: "center",
-            gap: 24,
+            color: "white",
+            fontWeight: "bold",
+            fontFamily: FONT.bold,
+            fontSize: 10,
+            position: "absolute",
+            left: 0,
+            borderWidth: 2,
+            padding: 5,
+            borderColor: "white",
+            borderRadius: 20,
           }}
         >
+          Catergory
+        </Text>
+        <Image
+          source={{
+            uri: "https://images.unsplash.com/photo-1590405861813-02de6a8a6246?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+          }}
+          style={{ height: 80, width: 80, borderRadius: 1000 }}
+        />
+        <Text style={styles.titles}>My Milestones</Text>
+        <HorizontalRule
+          width="100%"
+          height={1}
+          position="center"
+          backgroundColor="white"
+        />
+        <ScrollView style={{ width: "100%", height: 300 }}>
+          <View style={{ width: 70, alignItems: "center" }}>
+            <Text style={{ fontWeight: "700", color: "white", fontSize: 12 }}>
+              Start
+            </Text>
+            <Text style={{ color: "white", fontSize: 8 }}>10 Jul 23</Text>
+          </View>
           <MilestoneTab
             milestoneNumber={1}
             description="Learn how to layup"
             detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
+            date="10 Aug 23"
+            completed={true}
           />
           <MilestoneTab
             milestoneNumber={2}
-            description="Learn how to shoot 2 pointers"
-            detailedDescription="Shoot 20 consecutive 2 pointers flawlessly for 10 sessions "
+            description="Learn how to layup"
+            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
+            date="10 Aug 23"
+            completed={true}
           />
           <MilestoneTab
             milestoneNumber={3}
-            description="Learn how to shoot 3 pointers"
-            detailedDescription="Shoot 10 consecutive 3 pointers flawlessly for 10 sessions "
+            description="Learn how to layup"
+            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
+            date="10 Aug 23"
+            completed={false}
           />
-        </View>
+          <MilestoneTab
+            milestoneNumber={4}
+            description="Learn how to layup"
+            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
+            date="10 Aug 23"
+            completed={false}
+          />
+        </ScrollView>
       </View>
-      <>
+      <View style={styles.cardSection}>
+        {/* This is the bottom card */}
         <Text style={styles.titles}>My Motivations</Text>
         <HorizontalRule
-          width="90%"
-          height={2}
+          width="100%"
+          height={1}
           position="center"
-          marginTop={0}
           backgroundColor="white"
         />
         <Text
           style={{
-            width: "85%",
+            width: "100%",
             alignSelf: "center",
             fontWeight: "bold",
             color: "white",
@@ -77,41 +111,7 @@ const SwipeCardBack = () => {
           Currently very inconsistent with my shots. If you feel the same way,
           let’s practice together!
         </Text>
-      </>
-
-      <>
-        <Text style={styles.titles}>Timeline</Text>
-        <HorizontalRule
-          width="90%"
-          height={2}
-          position="center"
-          marginTop={0}
-          backgroundColor="white"
-        />
-        <View style={{ position: "relative" }}>
-          <HorizontalRule
-            width="90%"
-            height={2}
-            position="center"
-            marginTop={35}
-            backgroundColor="#DDDDDD"
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              marginTop: -38,
-              width: "80%",
-              alignSelf: "center",
-              gap: 24,
-            }}
-          >
-            <TimelinePins number={1} date="10th Jan 23" />
-            <TimelinePins number={2} date="10th Apr 23" />
-            <TimelinePins number={3} date="10th June 23" />
-          </View>
-        </View>
-      </>
+      </View>
     </LinearGradient>
   );
 };
@@ -119,6 +119,12 @@ const SwipeCardBack = () => {
 export default SwipeCardBack;
 
 const styles = StyleSheet.create({
+  cardSection: {
+    position: "relative",
+    alignItems: "center",
+    gap: 5,
+    overflow: "hidden",
+  },
   cardShadow: {
     shadowColor: "#000",
     shadowOffset: {
@@ -134,6 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "white",
     textAlign: "center",
-    marginTop: 30,
+    // marginTop: 30,
   },
 });

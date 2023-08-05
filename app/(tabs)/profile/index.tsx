@@ -24,7 +24,6 @@ const ProfilePage = () => {
       contentContainerStyle={{ alignItems: "flex-start" }}
     >
       <ProfileCard profilePhoto={AuthStore.getRawState().user?.photoURL} />
-      <HorizontalRule width={"100%"} height={"1"} position={"auto"} />
       <Text
         style={{
           fontFamily: FONT.bold,

@@ -31,7 +31,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
     const userSwiped = candidateData[cardIndex];
     console.log(`You PASS on ${userSwiped.firstName}`);
     setDoc(
-      doc(database, "users", auth.currentUser.uid, "passes", userSwiped.id),
+      doc(database, `users/${auth.currentUser.uid}/passes/${userSwiped.id}`),
       userSwiped
     );
   };
@@ -45,7 +45,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
     ).data();
     //check if the user swiped on you
     getDoc(
-      doc(database, "users", userSwiped.id, "swipes", auth.currentUser.uid)
+      doc(database, `users/${userSwiped.id}/swipes/${auth.currentUser.uid}`)
     ).then((DocumentSnapshot) => {
       if (DocumentSnapshot.exists()) {
         //user has matched with you before you matched with them
@@ -54,7 +54,10 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
         `);
 
         setDoc(
-          doc(database, "users", auth.currentUser.uid, "swipes", userSwiped.id),
+          doc(
+            database,
+            `users/${auth.currentUser.uid}/swipes/${userSwiped.id}`
+          ),
           userSwiped
         );
 
@@ -84,7 +87,10 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
         console.log("fdsfsd");
 
         setDoc(
-          doc(database, "users", auth.currentUser.uid, "swipes", userSwiped.id),
+          doc(
+            database,
+            `users/${auth.currentUser.uid}/swipes/${userSwiped.id}`
+          ),
           userSwiped
         );
       }

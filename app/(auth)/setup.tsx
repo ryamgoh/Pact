@@ -32,7 +32,6 @@ const Setup = () => {
   const [category, setCategory] = useState("");
   const [currentInterest, setCurrentInterest] = useState("");
   const gif = useRef("");
-  const profilePic = useRef("");
   const bio = useRef("");
 
   const createAccount = async () => {
@@ -43,7 +42,6 @@ const Setup = () => {
         category: category,
         interest: currentInterest,
         gif: gif.current,
-        profilePic: profilePic.current,
         bio: bio.current,
       };
       const resp = await setupDetails(data);
@@ -114,17 +112,6 @@ const Setup = () => {
         />
       </View>
       <View>
-        <Text style={styles.label}>Profile Picture</Text>
-        <TextInput
-          placeholder=""
-          autoCapitalize="none"
-          nativeID="profilePicture"
-          onChangeText={(text) => (profilePic.current = text)}
-          style={styles.textInput}
-          autoComplete="off"
-        />
-      </View>
-      <View>
         <Text style={styles.label}>Category</Text>
         <Picker
           selectedValue={category}
@@ -156,7 +143,8 @@ const Setup = () => {
         </Picker>
       </View>
       <View>
-        <Text style={styles.label}>GIF</Text>
+        <Text style={styles.label}>GIF that best describes you!</Text>
+        {/* This will be used as the user's swipe page */}
         <TextInput
           placeholder=""
           autoCapitalize="none"

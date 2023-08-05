@@ -22,29 +22,34 @@ const SwipeCard = ({ card }: { card: cardDataInterface }) => {
     >
       <Image source={{ uri: card.gif }} style={styles.cardLayout} />
       <View style={[styles.bottomBar, styles.cardShadow]}>
-        <View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.textStyle}>{card.name}</Text>
-
+          <Text style={styles.textStyle}>{card.age}</Text>
+        </View>
+        <Text
+          style={{
+            fontWeight: "500",
+            fontSize: 14,
+          }}
+        >
+          Interested in:{" "}
           <Text
             style={{
-              marginTop: 4,
-              fontWeight: "500",
-              fontSize: 16,
+              fontSize: 14,
+              fontWeight: "bold",
+              fontStyle: "italic",
             }}
           >
-            Interested in:{" "}
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "bold",
-              }}
-            >
-              {card.interest} {card.category}
-            </Text>
+            {card.interest} | {card.category}
           </Text>
-          <Text style={{ marginTop: 6 }}>{card.bio}</Text>
-        </View>
-        <Text style={styles.textStyle}>{card.age}</Text>
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+          }}
+        >
+          {card.bio}
+        </Text>
       </View>
     </View>
   );
@@ -73,8 +78,8 @@ const styles = StyleSheet.create({
     height: 130,
     position: "absolute",
     bottom: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    gap: 3,
     paddingHorizontal: 20,
     paddingTop: 10,
     borderBottomLeftRadius: 20,

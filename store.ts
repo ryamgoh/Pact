@@ -86,6 +86,9 @@ export const passwordResetEmail = async (email) => {
 
 export const isNewUser = async () => {
   try {
+    // const resp = await getDoc(
+    //   doc(database, "userdetails", auth.currentUser.uid)
+    // );
     const resp = await getDoc(doc(database, "users", auth.currentUser.uid));
     if (resp.exists()) {
       return false;
@@ -99,6 +102,7 @@ export const isNewUser = async () => {
 
 export const setupDetails = async (data) => {
   try {
+    // await setDoc(doc(database, "userdetails", auth.currentUser.uid), {
     await setDoc(doc(database, "users", auth.currentUser.uid), {
       ...data,
       name: auth.currentUser.displayName,

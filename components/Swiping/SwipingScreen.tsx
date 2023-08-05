@@ -29,7 +29,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
   const swipeLeft = async (cardIndex) => {
     if (!candidateData[cardIndex]) return;
     const userSwiped = candidateData[cardIndex];
-    console.log(`You PASS on ${userSwiped.firstName}`);
+    console.log(`You PASS on ${userSwiped.name}`);
     setDoc(
       doc(database, `users/${auth.currentUser.uid}/passes/${userSwiped.id}`),
       userSwiped
@@ -50,8 +50,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
       if (DocumentSnapshot.exists()) {
         //user has matched with you before you matched with them
         //create a match
-        console.log(`Hooray you MATCHED with ${userSwiped.firstName}
-        `);
+        console.log(`Hooray you MATCHED with ${userSwiped.name}`);
 
         setDoc(
           doc(

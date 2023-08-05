@@ -24,6 +24,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { invalidSetupDetails } from "../../components/UI/toast";
 import { setupDetails } from "../../store";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Setup = () => {
   const router = useRouter();
@@ -56,10 +57,10 @@ const Setup = () => {
   };
 
   return (
-    <ScrollView
-      style={{}}
+    <KeyboardAwareScrollView
+      style={{ paddingVertical: 50 }}
       contentContainerStyle={{
-        flex: 1,
+        flexGrow: 1,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -158,7 +159,7 @@ const Setup = () => {
         <Text style={styles.button}>Set up your details!</Text>
       </TouchableOpacity>
       <Toast />
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

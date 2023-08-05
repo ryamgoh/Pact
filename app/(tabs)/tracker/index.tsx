@@ -10,7 +10,7 @@ const TrackerPage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const colRef = collection(database, "userdetails");
+    const colRef = collection(database, "users");
     const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
       const newData = querySnapshot.docs.map((doc) => doc.data());
       setData(newData);

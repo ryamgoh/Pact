@@ -64,11 +64,11 @@ const ChatsPage = () => {
                 <ChatCard
                   key={index}
                   id={conversationId}
-                  profilePhoto={chatInfo.photoUrl}
-                  name={chatInfo.firstName}
+                  profilePhoto={chatInfo.gif}
+                  name={chatInfo.name}
                   chatStatus={"New chat"}
                   lastSeen={"Just now"}
-                  streaks={200}
+                  streaks={20}
                 />
                 <HorizontalRule width="100%" height={1} position={"auto"} />
               </>

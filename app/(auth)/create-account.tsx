@@ -7,6 +7,7 @@ import { LargerHeader } from "../../components/UI/logos";
 import Toast from "react-native-toast-message";
 import { createAccountErrorToast } from "../../components/UI/toast";
 import { useRef } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function CreateAccount() {
   const router = useRouter();
@@ -17,7 +18,13 @@ export default function CreateAccount() {
   const profilePic = useRef("");
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Stack.Screen options={{ headerShown: false }} />
       <LargerHeader />
       <Text
@@ -130,7 +137,7 @@ export default function CreateAccount() {
         </Text>
       </Text>
       <Toast />
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 

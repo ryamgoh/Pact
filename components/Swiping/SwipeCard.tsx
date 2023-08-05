@@ -2,12 +2,12 @@ import { View, Image, Text, StyleSheet } from "react-native";
 
 export interface cardDataInterface {
   id: number;
-  firstName: string;
-  lastName: string;
-  photoUrl: string;
+  name: string;
+  gif: string; // This is the gif url for Swipe Screen!
   age: number;
   interest: string;
-  description: string;
+  bio: string;
+  category: string;
 }
 const SwipeCard = ({ card }: { card: cardDataInterface }) => {
   return (
@@ -20,12 +20,10 @@ const SwipeCard = ({ card }: { card: cardDataInterface }) => {
         position: "relative",
       }}
     >
-      <Image source={{ uri: card.photoUrl }} style={styles.cardLayout} />
+      <Image source={{ uri: card.gif }} style={styles.cardLayout} />
       <View style={[styles.bottomBar, styles.cardShadow]}>
         <View>
-          <Text style={styles.textStyle}>
-            {card.firstName} {card.lastName}
-          </Text>
+          <Text style={styles.textStyle}>{card.name}</Text>
 
           <Text
             style={{
@@ -41,10 +39,10 @@ const SwipeCard = ({ card }: { card: cardDataInterface }) => {
                 fontWeight: "bold",
               }}
             >
-              {card.interest}
+              {card.interest} {card.category}
             </Text>
           </Text>
-          <Text style={{ marginTop: 6 }}>{card.description}</Text>
+          <Text style={{ marginTop: 6 }}>{card.bio}</Text>
         </View>
         <Text style={styles.textStyle}>{card.age}</Text>
       </View>

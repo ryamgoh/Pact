@@ -12,11 +12,7 @@ const ProfileCard = ({ profilePhoto }) => {
 
   console.log(AuthStore.getRawState().user?.uid);
 
-  const docRef = doc(
-    database,
-    "userdetails",
-    AuthStore.getRawState().user?.uid
-  );
+  const docRef = doc(database, "users", AuthStore.getRawState().user?.uid);
 
   useEffect(() => {
     const fetchProfileData = async () => {

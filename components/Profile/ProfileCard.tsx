@@ -1,10 +1,39 @@
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { COLORS, FONT, SIZES } from "../../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { icons } from "../../constants";
+import { AuthStore } from "../../store";
+import { getDoc, collection, doc } from "firebase/firestore";
+import { database } from "../../FirebaseConfig";
 
 const ProfileCard = ({ profilePhoto }) => {
+  const [profileData, setProfileData] = React.useState(null);
+
+  console.log(AuthStore.getRawState().user?.uid);
+
+  const docRef = doc(
+    database,
+    "userdetails",
+    AuthStore.getRawState().user?.uid
+  );
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      await getDoc(docRef).then((doc) => {
+        if (doc.exists()) {
+          // console.log("Document data:", doc.data());
+          setProfileData(doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      });
+    };
+
+    fetchProfileData();
+  }, []);
+
   return (
     <LinearGradient
       colors={["#FDC89B", "#FF8D79"]}
@@ -39,7 +68,7 @@ const ProfileCard = ({ profilePhoto }) => {
                 fontSize: SIZES.medium,
               }}
             >
-              @RyannGoh
+              @{profileData?.username}
             </Text>
           </ScrollView>
         </View>
@@ -60,7 +89,7 @@ const ProfileCard = ({ profilePhoto }) => {
               fontSize: SIZES.medium,
             }}
           >
-            Ryann Goh
+            {AuthStore.getRawState().user?.displayName}
           </Text>
           <Text
             style={{
@@ -68,13 +97,9 @@ const ProfileCard = ({ profilePhoto }) => {
               fontSize: SIZES.medium,
             }}
           >
-            22 y/o
+            {profileData?.age} y/o
           </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-            repellat quaerat similique obcaecati deleniti odio eos ad veniam
-            unde consectetur.
-          </Text>
+          <Text>{profileData?.bio}</Text>
         </ScrollView>
         <Image
           source={icons.editButton}

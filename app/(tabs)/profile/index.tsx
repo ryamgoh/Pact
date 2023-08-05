@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Image,
 } from "react-native";
 import { AuthStore, appSignOut } from "../../../store";
 import { FONT } from "../../../constants";
@@ -22,11 +23,7 @@ const ProfilePage = () => {
       style={Styled.MainScrollableCanvas}
       contentContainerStyle={{ alignItems: "flex-start" }}
     >
-      <ProfileCard
-        profilePhoto={
-          "https://images.unsplash.com/photo-1689888154384-00e7f1e191f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80"
-        }
-      />
+      <ProfileCard profilePhoto={AuthStore.getRawState().user?.photoURL} />
       <HorizontalRule width={"100%"} height={"1"} position={"auto"} />
       <Text
         style={{
@@ -44,6 +41,13 @@ const ProfilePage = () => {
       <Text style={{ fontFamily: FONT.bold }}>
         {AuthStore.getRawState().user?.displayName}
       </Text>
+      <Text style={{ fontFamily: FONT.bold }}>
+        {AuthStore.getRawState().user?.uid}
+      </Text>
+      <Image
+        source={AuthStore.getRawState().user?.photoURL}
+        style={{ height: 40, width: 40 }}
+      />
       <Button
         onPress={async () => {
           const resp = await appSignOut();

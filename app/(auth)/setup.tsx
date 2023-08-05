@@ -1,4 +1,9 @@
-import { AcademicsPicker, EmptyPicker, InstrumentsPicker, SportsPicker } from "../../components/UI/dropdown";
+import {
+  AcademicsPicker,
+  EmptyPicker,
+  InstrumentsPicker,
+  SportsPicker,
+} from "../../components/UI/dropdown";
 import {
   Alert,
   Button,
@@ -27,6 +32,8 @@ const Setup = () => {
   const [category, setCategory] = useState("");
   const [currentInterest, setCurrentInterest] = useState("");
   const gif = useRef("");
+  const profilePic = useRef("");
+  const bio = useRef("");
 
   const createAccount = async () => {
     try {
@@ -36,7 +43,9 @@ const Setup = () => {
         category: category,
         interest: currentInterest,
         gif: gif.current,
-      }
+        profilePic: profilePic.current,
+        bio: bio.current,
+      };
       const resp = await setupDetails(data);
       if (resp) {
         router.replace("/(tabs)/home");
@@ -46,24 +55,38 @@ const Setup = () => {
     } catch (err) {
       invalidSetupDetails();
     }
-  }
+  };
 
   return (
     <ScrollView
-    style={{}}
-    contentContainerStyle={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      style={{}}
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <Stack.Screen options={{ headerShown: false }} />
       <LargerHeader />
       <Text style={styles.header}>Profile Set Up</Text>
-      <Text style={{ fontFamily: FONT.regular, marginBottom: 20, width: 350, color: COLORS.gray, textAlign: "center" }}>Please enter the following information to complete your profile.</Text>
+      <Text
+        style={{
+          fontFamily: FONT.regular,
+          marginBottom: 20,
+          width: 350,
+          color: COLORS.gray,
+          textAlign: "center",
+        }}
+      >
+        Please enter the following information to complete your profile.
+      </Text>
       <View>
         <Text style={styles.label}>Username</Text>
         <TextInput
           placeholder=""
           autoCapitalize="none"
           nativeID="username"
-          onChangeText={text => username.current = text}
+          onChangeText={(text) => (username.current = text)}
           style={styles.textInput}
           autoComplete="off"
         />
@@ -74,7 +97,29 @@ const Setup = () => {
           placeholder=""
           autoCapitalize="none"
           nativeID="age"
-          onChangeText={text => age.current = text}
+          onChangeText={(text) => (age.current = text)}
+          style={styles.textInput}
+          autoComplete="off"
+        />
+      </View>
+      <View>
+        <Text style={styles.label}>Bio</Text>
+        <TextInput
+          placeholder=""
+          autoCapitalize="none"
+          nativeID="bio"
+          onChangeText={(text) => (bio.current = text)}
+          style={styles.textInput}
+          autoComplete="off"
+        />
+      </View>
+      <View>
+        <Text style={styles.label}>Profile Picture</Text>
+        <TextInput
+          placeholder=""
+          autoCapitalize="none"
+          nativeID="profilePicture"
+          onChangeText={(text) => (profilePic.current = text)}
           style={styles.textInput}
           autoComplete="off"
         />
@@ -96,7 +141,9 @@ const Setup = () => {
         <Text style={styles.label}>Current Interest</Text>
         <Picker
           selectedValue={currentInterest}
-          onValueChange={(itemValue, itemIndex) => setCurrentInterest(itemValue)}
+          onValueChange={(itemValue, itemIndex) =>
+            setCurrentInterest(itemValue)
+          }
           style={styles.textInput}
         >
           {category === "Sports"
@@ -114,15 +161,13 @@ const Setup = () => {
           placeholder=""
           autoCapitalize="none"
           nativeID="gif"
-          onChangeText={text => gif.current = text}
+          onChangeText={(text) => (gif.current = text)}
           style={styles.textInput}
           autoComplete="off"
         />
       </View>
       <TouchableOpacity onPress={createAccount}>
-        <Text style={styles.button}>
-          Set up your details!
-        </Text>
+        <Text style={styles.button}>Set up your details!</Text>
       </TouchableOpacity>
       <Toast />
     </ScrollView>
@@ -158,7 +203,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     color: COLORS.white,
-  }
+  },
 });
 
 export default Setup;

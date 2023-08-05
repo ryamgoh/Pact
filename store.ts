@@ -1,9 +1,4 @@
-import {
-  DocumentSnapshot,
-  doc,
-  getDoc,
-  setDoc
-} from "firebase/firestore";
+import { DocumentSnapshot, doc, getDoc, setDoc } from "firebase/firestore";
 import { Store, registerInDevtools } from "pullstate";
 import { app, auth, database } from "./FirebaseConfig";
 import {
@@ -30,7 +25,7 @@ const unsub = onAuthStateChanged(auth, (user) => {
   });
 });
 
-export const appSignIn = async (email, password) => {
+export const appSignIn = async (email: string, password: string) => {
   try {
     const resp = await signInWithEmailAndPassword(auth, email, password);
     AuthStore.update((store) => {
@@ -56,13 +51,18 @@ export const appSignOut = async () => {
   }
 };
 
-export const appSignUp = async (email, password, displayName) => {
+export const appSignUp = async (
+  email: string,
+  password: string,
+  displayName: string,
+  profilePicture: string
+) => {
   try {
     // this will trigger onAuthStateChange to update the store..
     const resp = await createUserWithEmailAndPassword(auth, email, password);
 
     // add the displayName
-    await updateProfile(resp.user, { displayName });
+    await updateProfile(resp.user, { displayName, photoURL: profilePicture });
 
     AuthStore.update((store) => {
       store.user = auth.currentUser;
@@ -86,7 +86,9 @@ export const passwordResetEmail = async (email) => {
 
 export const isNewUser = async () => {
   try {
-    const resp = await getDoc(doc(database, "userdetails", auth.currentUser.uid));
+    const resp = await getDoc(
+      doc(database, "userdetails", auth.currentUser.uid)
+    );
     if (resp.exists()) {
       return false;
     } else {
@@ -95,19 +97,20 @@ export const isNewUser = async () => {
   } catch (e) {
     return false;
   }
-}
+};
 
 export const setupDetails = async (data) => {
   try {
     await setDoc(doc(database, "userdetails", auth.currentUser.uid), {
       ...data,
       name: auth.currentUser.displayName,
+      profilePic: auth.currentUser.photoURL,
       id: auth.currentUser.uid,
     });
     return true;
   } catch (e) {
     return false;
   }
-}
+};
 
 registerInDevtools({ AuthStore });

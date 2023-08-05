@@ -14,17 +14,36 @@ export default function CreateAccount() {
   const firstNameRef = useRef("");
   const lastNameRef = useRef("");
   const passwordRef = useRef("");
+  const profilePic = useRef("");
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Stack.Screen options={{ headerShown: false }} />
       <LargerHeader />
-      <Text style={{ fontFamily: FONT.medium, fontSize: 24, marginBottom: 16, marginTop: 30, }}>
+      <Text
+        style={{
+          fontFamily: FONT.medium,
+          fontSize: 24,
+          marginBottom: 16,
+          marginTop: 30,
+        }}
+      >
         Create Account
       </Text>
       <Text style={{ fontFamily: FONT.regular, marginBottom: 16 }}>
         Please enter your information below
       </Text>
+      <View>
+        <Text style={styles.label}>Profile Picture</Text>
+        <TextInput
+          placeholder=""
+          autoCapitalize="none"
+          nativeID="profilePicture"
+          onChangeText={(text) => (profilePic.current = text)}
+          style={styles.textInput}
+          autoComplete="off"
+        />
+      </View>
       <View>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -82,6 +101,7 @@ export default function CreateAccount() {
             emailRef.current,
             passwordRef.current,
             firstNameRef.current + " " + lastNameRef.current,
+            profilePic.current
           );
           if (resp?.user) {
             router.replace("/success-creation");
@@ -102,7 +122,12 @@ export default function CreateAccount() {
         }}
         style={styles.cancelButton}
       >
-        Have an Account? <Text style={{textDecorationLine: "underline", fontFamily: FONT.medium}}>Login</Text>
+        Have an Account?{" "}
+        <Text
+          style={{ textDecorationLine: "underline", fontFamily: FONT.medium }}
+        >
+          Login
+        </Text>
       </Text>
       <Toast />
     </View>
@@ -143,5 +168,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 250,
     textAlign: "center",
-  }
+  },
 });

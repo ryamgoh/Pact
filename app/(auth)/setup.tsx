@@ -4,27 +4,23 @@ import {
   InstrumentsPicker,
   SportsPicker,
 } from "../../components/UI/dropdown";
+import { COLORS, FONT } from "../../constants";
+import { Stack, useRouter } from "expo-router";
 import {
-  Alert,
-  Button,
-  Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { COLORS, FONT } from "../../constants";
-import { Stack, useRouter } from "expo-router";
 import { useRef, useState } from "react";
 
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LargerHeader } from "../../components/UI/logos";
 import { Picker } from "@react-native-picker/picker";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { invalidSetupDetails } from "../../components/UI/toast";
 import { setupDetails } from "../../store";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Setup = () => {
   const router = useRouter();
@@ -32,7 +28,6 @@ const Setup = () => {
   const age = useRef("");
   const [category, setCategory] = useState("");
   const [currentInterest, setCurrentInterest] = useState("");
-  const gif = useRef("");
   const bio = useRef("");
 
   const createAccount = async () => {
@@ -42,12 +37,12 @@ const Setup = () => {
         username: username.current,
         category: category,
         interest: currentInterest,
-        gif: gif.current,
+        gif: "",
         bio: bio.current,
       };
       const resp = await setupDetails(data);
       if (resp) {
-        router.replace("/(tabs)/home");
+        router.replace("/create-gif");
       } else {
         invalidSetupDetails();
       }
@@ -142,18 +137,6 @@ const Setup = () => {
             ? InstrumentsPicker
             : EmptyPicker}
         </Picker>
-      </View>
-      <View>
-        <Text style={styles.label}>GIF that best describes you!</Text>
-        {/* This will be used as the user's swipe page */}
-        <TextInput
-          placeholder=""
-          autoCapitalize="none"
-          nativeID="gif"
-          onChangeText={(text) => (gif.current = text)}
-          style={styles.textInput}
-          autoComplete="off"
-        />
       </View>
       <TouchableOpacity onPress={createAccount}>
         <Text style={styles.button}>Set up your details!</Text>

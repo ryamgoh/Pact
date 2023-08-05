@@ -164,7 +164,14 @@ const ConversationPage = () => {
   return (
     <>
       <Stack.Screen
-        options={{ headerShown: true, headerTitle: `Chat with ${name}` }}
+        options={{
+          headerShown: true,
+          headerTitle: `Chat with ${name}`,
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTintColor: `#F96D5A`,
+        }}
       />
       {/* <GiftedChat
         isTyping={true}

@@ -1,4 +1,4 @@
-import { Modal, Text, View } from "react-native";
+import { Image, Modal, Text, View } from "react-native";
 
 import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -14,7 +14,7 @@ export default function GIFCard({id, src}) {
 
   return (
     <View >
-      <iframe src={src} style={styles.iframe}/>
+      <Image source={{ uri: src }} style={styles.iframe} />
       <TouchableOpacity onPress={toggleModal}>
         <Text>Select</Text>
       </TouchableOpacity>

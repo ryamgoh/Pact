@@ -1,4 +1,4 @@
-import { DocumentSnapshot, doc, getDoc, setDoc } from "firebase/firestore";
+import { DocumentSnapshot, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { Store, registerInDevtools } from "pullstate";
 import { app, auth, database } from "./FirebaseConfig";
 import {
@@ -114,5 +114,16 @@ export const setupDetails = async (data) => {
     return false;
   }
 };
+
+export const setupGIF = async (url) => {
+  try {
+    await updateDoc(doc(database, "users", auth.currentUser.uid), {
+      gif: url,
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 
 registerInDevtools({ AuthStore });

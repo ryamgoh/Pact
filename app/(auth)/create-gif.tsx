@@ -52,12 +52,9 @@ export default function createGIF() {
       { search === "" 
         ? trending === null 
           ? <Text>Loading....</Text>
-          : <View style={styles.trending}>{trending?.map(gif => <GIFCard id={gif.id} src={gif.media_formats.nanogif.url} key={gif.id}/>)}</View>
-        : <View style={styles.trending}>{gif?.map(gif => <GIFCard id={gif.id} src={gif.media_formats.nanogif.url} key={gif.id}/>)}</View>
+          : <View style={styles.trending}>{trending?.map(gif => <GIFCard data={gif} title={gif.content_description} id={gif.id} src={gif.media_formats.nanogif.url} key={gif.id}/>)}</View>
+        : <View style={styles.trending}>{gif?.map(gif => <GIFCard data={gif} title={gif.content_description} id={gif.id} src={gif.media_formats.nanogif.url} key={gif.id}/>)}</View>
       }
-      <TouchableOpacity onPress={() => console.log("Come here BOI!")}>
-        <Text style={styles.button}>Get started with Pact!</Text>
-      </TouchableOpacity>
     </View>
   )
 }

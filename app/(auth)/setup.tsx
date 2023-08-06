@@ -1,9 +1,10 @@
-import {
-  AcademicsPicker,
-  EmptyPicker,
-  InstrumentsPicker,
-  SportsPicker,
-} from "../../components/UI/dropdown";
+// import {
+//   AcademicsPicker,
+//   EmptyPicker,
+//   InstrumentsPicker,
+//   SportsPicker,
+// } from "../../components/UI/dropdown";
+
 import { COLORS, FONT } from "../../constants";
 import { Stack, useRouter } from "expo-router";
 import {
@@ -17,17 +18,21 @@ import { useRef, useState } from "react";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { LargerHeader } from "../../components/UI/logos";
-import { Picker } from "@react-native-picker/picker";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { invalidSetupDetails } from "../../components/UI/toast";
 import { setupDetails } from "../../store";
+
+// import { Picker } from "@react-native-picker/picker";
+
+
+
 
 const Setup = () => {
   const router = useRouter();
   const username = useRef("");
   const age = useRef("");
-  const [category, setCategory] = useState("");
-  const [currentInterest, setCurrentInterest] = useState("");
+  // const [category, setCategory] = useState("");
+  // const [currentInterest, setCurrentInterest] = useState("");
   const bio = useRef("");
 
   const createAccount = async () => {
@@ -35,8 +40,8 @@ const Setup = () => {
       const data = {
         age: age.current,
         username: username.current,
-        category: category,
-        interest: currentInterest,
+        // category: category,
+        // interest: currentInterest,
         gif: "",
         bio: bio.current,
       };
@@ -107,7 +112,7 @@ const Setup = () => {
           autoComplete="off"
         />
       </View>
-      <View>
+      {/* <View>
         <Text style={styles.label}>Category</Text>
         <Picker
           selectedValue={category}
@@ -137,7 +142,7 @@ const Setup = () => {
             ? InstrumentsPicker
             : EmptyPicker}
         </Picker>
-      </View>
+      </View> */}
       <TouchableOpacity onPress={createAccount}>
         <Text style={styles.button}>Set up your details!</Text>
       </TouchableOpacity>

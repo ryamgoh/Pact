@@ -49,3 +49,13 @@ export const invalidSetupDetails = () => {
     visibilityTime: 2000,
   });
 }
+
+export const invalidGIF = () => {
+  Toast.show({
+    type: 'error',
+    text1: 'Invalid GIF',
+    text2: 'Please select a GIF',
+    autoHide: true,
+    visibilityTime: 2000,
+  });
+};

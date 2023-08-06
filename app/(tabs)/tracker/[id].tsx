@@ -1,18 +1,46 @@
 import { View, Text } from "react-native";
 import { Stack, useLocalSearchParams, useSearchParams } from "expo-router";
 import { COLORS } from "../../../constants";
-import React from "react";
-import SwipeCard, {
-  cardDataInterface,
-} from "../../../components/Swiping/SwipeCard";
+import React, { useEffect, useState } from "react";
+import { getDoc, collection, doc } from "firebase/firestore";
+import { database } from "../../../FirebaseConfig";
 import SwipeCardBack from "../../../components/Swiping/SwipeCardBack";
 import FlipCard from "react-native-flip-card";
-import HorizontalRule from "../../../components/General/HorizontalRule";
 
 const NewsDetailsPage = () => {
   const { id } = useSearchParams();
   const params = useLocalSearchParams();
   const { pactName } = params;
+
+  const [userData, setUserData] = useState({});
+
+  // useEffect(() => {
+  //   getDoc(doc(database, `matches/${id}`)).then((doc) => {
+  //     // console.log(doc.data());
+  //     setUserData(doc.data().users);
+  //     console.log(userData);
+  //   });
+  // }, [id]);
+
+  useEffect(() => {
+    getDoc(doc(database, `matches/${id}`))
+      .then((doc) => {
+        if (doc.exists()) {
+          const data = doc.data();
+          if (data && data.users) {
+            setUserData(data.users);
+          } else {
+            console.error(
+              "Invalid data structure: 'users' property not found."
+            );
+          }
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching document:", error);
+      });
+  }, [id]);
 
   return (
     <View style={{ paddingHorizontal: 10, paddingVertical: 40 }}>
@@ -34,8 +62,11 @@ const NewsDetailsPage = () => {
           flipVertical={false}
           clickable={true}
         >
-          <SwipeCardBack />
-          <SwipeCardBack />
+          {Object.entries(userData).map(
+            ([key, value]) => (
+              <SwipeCardBack key={key} data={value} />
+            ) // Added parentheses and key prop
+          )}
         </FlipCard>
       </View>
     </View>

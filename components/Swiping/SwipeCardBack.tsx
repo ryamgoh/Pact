@@ -3,10 +3,41 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import HorizontalRule from "../General/HorizontalRule";
 import MilestoneTab from "./MilestoneTab";
-import { FONT, icons } from "../../constants";
-import TimelinePins from "./TimelinePins";
+import { FONT } from "../../constants";
 import { ScrollView } from "react-native-gesture-handler";
-const SwipeCardBack = () => {
+const SwipeCardBack = ({ data }: any) => {
+  console.log(data?.name);
+  let startDate = "10 Jul 23"; // Date of Pact Creation
+
+  let motivations = data.bio ? data.bio : "No bio available";
+  // `Long time Lakers fan here trying to level up my shooting skills. Currently very inconsistent with my shots. If you feel the same way, lets practice together!`;
+
+  let milestoneData = [
+    {
+      milestoneNumber: 1,
+      description: "Learn how to layup",
+      detailedDescription:
+        "Perform 10 consecutive layups flawlessly for 5 sessions ",
+      date: "10 Aug 23",
+      completed: true,
+    },
+    {
+      milestoneNumber: 2,
+      description: "Learn how to 2-point shot",
+      detailedDescription:
+        "Perform 10 consecutive 2-pointers flawlessly for 5 sessions ",
+      date: "10 Dec 23",
+      completed: false,
+    },
+    {
+      milestoneNumber: 3,
+      description: "Learn how to throw a ball like Steph Curry",
+      detailedDescription: "Become basketball god and win the NBA championship",
+      date: "10 Jan 24",
+      completed: false,
+    },
+  ];
+
   return (
     <LinearGradient
       colors={["#FCA2A2", "#FBCDA6"]}
@@ -38,15 +69,15 @@ const SwipeCardBack = () => {
             borderRadius: 20,
           }}
         >
-          Catergory
+          {data.category}
         </Text>
         <Image
-          source={{
-            uri: "https://images.unsplash.com/photo-1590405861813-02de6a8a6246?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-          }}
+          source={{ uri: data.profilePic }}
           style={{ height: 80, width: 80, borderRadius: 1000 }}
         />
-        <Text style={styles.titles}>My Milestones</Text>
+        <Text style={styles.titles}>
+          {data ? data.name.split(" ")[0] : "Placeholder"}'s Milestones
+        </Text>
         <HorizontalRule
           width="100%"
           height={1}
@@ -58,41 +89,25 @@ const SwipeCardBack = () => {
             <Text style={{ fontWeight: "700", color: "white", fontSize: 12 }}>
               Start
             </Text>
-            <Text style={{ color: "white", fontSize: 8 }}>10 Jul 23</Text>
+            <Text style={{ color: "white", fontSize: 8 }}>{startDate}</Text>
           </View>
-          <MilestoneTab
-            milestoneNumber={1}
-            description="Learn how to layup"
-            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
-            date="10 Aug 23"
-            completed={true}
-          />
-          <MilestoneTab
-            milestoneNumber={2}
-            description="Learn how to layup"
-            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
-            date="10 Aug 23"
-            completed={true}
-          />
-          <MilestoneTab
-            milestoneNumber={3}
-            description="Learn how to layup"
-            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
-            date="10 Aug 23"
-            completed={false}
-          />
-          <MilestoneTab
-            milestoneNumber={4}
-            description="Learn how to layup"
-            detailedDescription="Perform 10 consecutive layups flawlessly for 5 sessions "
-            date="10 Aug 23"
-            completed={false}
-          />
+          {milestoneData.map((milestone, index) => (
+            <MilestoneTab
+              key={index}
+              milestoneNumber={milestone.milestoneNumber}
+              description={milestone.description}
+              detailedDescription={milestone.detailedDescription}
+              date={milestone.date}
+              completed={milestone.completed}
+            />
+          ))}
         </ScrollView>
       </View>
       <View style={styles.cardSection}>
         {/* This is the bottom card */}
-        <Text style={styles.titles}>My Motivations</Text>
+        <Text style={styles.titles}>
+          {data ? data.name.split(" ")[0] : "Placeholder"}'s Motivations
+        </Text>
         <HorizontalRule
           width="100%"
           height={1}
@@ -107,9 +122,8 @@ const SwipeCardBack = () => {
             color: "white",
           }}
         >
-          Long time Lakers fan here trying to level up my shooting skills.
-          Currently very inconsistent with my shots. If you feel the same way,
-          let’s practice together!
+          {motivations}
+          {/* To Change */}
         </Text>
       </View>
     </LinearGradient>

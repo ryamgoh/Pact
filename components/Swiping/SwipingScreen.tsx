@@ -140,7 +140,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
                 clickable={true}
               >
                 <SwipeCard card={card} />
-                <SwipeCardBack />
+                <SwipeCardBack data={card} />
               </FlipCard>
             ) : (
               <View style={[styles.cardLayout, styles.cardShadow]}>

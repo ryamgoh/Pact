@@ -1,14 +1,18 @@
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
-import React, { useState, useEffect } from "react";
-import { FONT, COLORS, SIZES } from "../../../constants";
-import Styled from "../../../styles/container";
-import TrackerCard from "../../../components/Tracker/TrackerCard";
-import { onSnapshot, collection, query, where } from "firebase/firestore";
+import { COLORS, FONT, SIZES } from "../../../constants";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import { auth, database } from "../../../FirebaseConfig";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+
+import Styled from "../../../styles/container";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import TrackerCard from "../../../components/Tracker/TrackerCard";
 import getMatchedUserInfo from "../../../lib/getMatchedUserInfo";
+import { useRouter } from "expo-router";
 
 const TrackerPage = () => {
-  const [data, setData] = useState([]);
+  const router = useRouter();
+  // const [data, setData] = useState([]);
 
   // useEffect(() => {
   //   // const colRef = collection(database, "userdetails");
@@ -45,8 +49,6 @@ const TrackerPage = () => {
 
   console.log(matches);
 
-  // console.log(data);
-
   return (
     <ScrollView
       contentContainerStyle={[Styled.MainScrollableCanvas, { gap: 20 }]}
@@ -66,7 +68,8 @@ const TrackerPage = () => {
         const chatInfo = getMatchedUserInfo(item.users, auth.currentUser.uid);
 
         return (
-          <TrackerCard
+          <>
+            <TrackerCard
             id={conversationId}
             key={index}
             profilePhoto={chatInfo.gif}
@@ -76,10 +79,25 @@ const TrackerPage = () => {
             subcategory={chatInfo.interest}
             evaluationRequired={true}
           />
+            />
+            <TouchableOpacity onPress={() => router.replace("/tracker/CreateGoal")} style={styles.add}>
+              <Text style={{ fontFamily: FONT.bold, fontWeight: "bold" }}>Add Goal</Text>
+            </TouchableOpacity>
+          </>
         );
       })}
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  add: {
+    width: 370,
+    textAlign: "center",
+    border: "0.5px solid black",
+    borderRadius: 10,
+    padding: 10,
+  }
+});
 
 export default TrackerPage;

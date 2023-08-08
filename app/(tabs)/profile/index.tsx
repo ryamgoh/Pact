@@ -20,8 +20,10 @@ const ProfilePage = () => {
   const router = useRouter();
   return (
     <ScrollView
-      style={Styled.MainScrollableCanvas}
-      contentContainerStyle={{ alignItems: "flex-start" }}
+      contentContainerStyle={[
+        Styled.MainScrollableCanvas,
+        { alignItems: "flex-start" },
+      ]}
     >
       <ProfileCard profilePhoto={AuthStore.getRawState().user?.photoURL} />
       <Text

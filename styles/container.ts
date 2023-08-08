@@ -4,16 +4,17 @@ import { COLORS, FONT, SIZES } from "../constants";
 
 const styles = StyleSheet.create({
   MainCanvas: {
-    padding: 10,
+    padding: 20,
     alignItems: "center",
     flex: 1,
     flexDirection: "column",
   },
   MainScrollableCanvas: {
-    padding: 10,
+    padding: 20,
     flex: 1,
     flexDirection: "column",
     backgroundColor: "white",
+    // alignItems: "center",
   },
 });
 

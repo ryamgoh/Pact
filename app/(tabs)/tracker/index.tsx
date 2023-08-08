@@ -49,8 +49,7 @@ const TrackerPage = () => {
 
   return (
     <ScrollView
-      style={Styled.MainScrollableCanvas}
-      contentContainerStyle={{ alignItems: "center", gap: 20 }}
+      contentContainerStyle={[Styled.MainScrollableCanvas, { gap: 20 }]}
     >
       <Text
         style={{
@@ -75,6 +74,7 @@ const TrackerPage = () => {
             milestoneCount={2} // Will need more time to figure out how to get this
             category={chatInfo.category}
             subcategory={chatInfo.interest}
+            evaluationRequired={true}
           />
         );
       })}

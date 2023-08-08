@@ -1,6 +1,6 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
-import { FONT } from "../../../constants";
+import { COLORS, FONT } from "../../../constants";
 import ChatCard from "../../../components/Chats/ChatCard";
 import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
 import Styled from "../../../styles/container";
@@ -70,7 +70,12 @@ const ChatsPage = () => {
                   lastSeen={"Just now"}
                   streaks={20}
                 />
-                <HorizontalRule width="100%" height={1} position={"auto"} />
+                <HorizontalRule
+                  width="100%"
+                  height={1}
+                  position={"auto"}
+                  backgroundColor={COLORS.gray2}
+                />
               </>
             );
           })

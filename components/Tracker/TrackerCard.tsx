@@ -10,6 +10,7 @@ import React, { useState, useEffect } from "react";
 import { FONT, COLORS, SIZES } from "../../constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { AntDesign } from "@expo/vector-icons";
 
 interface TrackerCardProps {
   profilePhoto: string;
@@ -18,6 +19,7 @@ interface TrackerCardProps {
   category: string;
   subcategory: string;
   id: string;
+  evaluationRequired: boolean;
 }
 
 const TrackerCard = ({
@@ -27,6 +29,7 @@ const TrackerCard = ({
   category,
   subcategory,
   id,
+  evaluationRequired,
 }: TrackerCardProps) => {
   const router = useRouter();
 
@@ -34,7 +37,11 @@ const TrackerCard = ({
     <TouchableOpacity
       style={{ width: "100%" }}
       onPress={() =>
-        router.push({ pathname: `/tracker/${id}`, params: { pactName } })
+        evaluationRequired
+          ? router.push({
+              pathname: `/evaluation`, // Go to Evaluation Page
+            })
+          : router.push({ pathname: `/tracker/${id}`, params: { pactName } })
       }
     >
       <LinearGradient
@@ -51,6 +58,24 @@ const TrackerCard = ({
         }
         style={{ borderRadius: 12, width: "100%", height: 120 }}
       >
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+            zIndex: 1,
+            left: -14,
+            top: -14,
+            backgroundColor: "#F17C7C",
+            borderRadius: 1000,
+            padding: 4,
+            borderColor: "#361818",
+            borderWidth: 2,
+          }}
+        >
+          <AntDesign name="notification" size={14} color="#992121" />
+        </View>
         <View style={styles.targetCard}>
           <View style={styles.targetCardLeft}>
             <Text

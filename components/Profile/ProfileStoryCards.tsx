@@ -5,15 +5,15 @@ import ProfileStoryCard from "./ProfileStoryCard";
 
 const ProfileStoryCards = () => {
   return (
-    // <ScrollView
-    //   style={styles.cardContainer}
-    //   contentContainerStyle={{
-    //     alignItems: "center",
-    //     gap: 10,
-    //   }}
-    //   horizontal
-    // >
     <View style={[styles.cardContainer, { alignItems: "center", gap: 10 }]}>
+      {/* <ScrollView
+        style={styles.cardContainer}
+        contentContainerStyle={{
+          alignItems: "center",
+          gap: 10,
+        }}
+        horizontal
+      > */}
       <ProfileStoryCard
         storySource={"https://picsum.photos/200/291"}
         storyName={"Basketball"}
@@ -34,8 +34,8 @@ const ProfileStoryCards = () => {
         storySource={"https://picsum.photos/200/295"}
         storyName={"Bowling"}
       />
+      {/* </ScrollView> */}
     </View>
-    // </ScrollView>
   );
 };
 

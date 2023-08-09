@@ -104,6 +104,7 @@ export default ChatCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
+    backgroundColor: "white",
     width: "100%",
     height: 80,
     padding: 10,

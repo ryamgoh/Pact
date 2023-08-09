@@ -9,7 +9,7 @@ const ProfileStoryCard = ({ storySource, storyName }) => {
   return (
     <Pressable
       onPress={() => {
-        alert("Story Pressed");
+        // alert("Story Pressed");
         router.push({
           pathname: `/profile/storymodal`,
         });

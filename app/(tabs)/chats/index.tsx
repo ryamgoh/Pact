@@ -1,4 +1,11 @@
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { COLORS, FONT, SIZES } from "../../../constants";
 import ChatCard from "../../../components/Chats/ChatCard";
@@ -8,6 +15,7 @@ import HorizontalRule from "../../../components/General/HorizontalRule";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { database, auth } from "../../../FirebaseConfig";
 import getMatchedUserInfo from "../../../lib/getMatchedUserInfo";
+import { SwipeListView } from "react-native-swipe-list-view";
 
 const ChatsPage = () => {
   const [matches, setMatches] = useState([]);
@@ -48,73 +56,50 @@ const ChatsPage = () => {
       </Text>
       <ChatsSearchBar filterText={filterText} setFilterText={setFilterText} />
 
-      {filterText === "" ? (
-        matches ? (
-          matches.map((chat, index) => {
-            const conversationId = chat.id;
+      {matches ? (
+        <SwipeListView
+          style={{ width: "100%" }}
+          data={matches}
+          renderItem={(chat, index) => {
+            const conversationId = chat.item.id;
 
             const chatInfo = getMatchedUserInfo(
-              chat.users,
+              chat.item.users,
               auth.currentUser.uid
             );
-
-            console.log("testing" + JSON.stringify(chatInfo));
             return (
-              <>
-                <ChatCard
-                  key={index}
-                  id={conversationId}
-                  profilePhoto={chatInfo.gif}
-                  name={chatInfo.name}
-                  chatStatus={"New chat"}
-                  lastSeen={"Just now"}
-                  streaks={20}
-                />
-                <HorizontalRule
-                  width="100%"
-                  height={1}
-                  position={"auto"}
-                  backgroundColor={COLORS.gray2}
-                />
-              </>
+              <ChatCard
+                id={conversationId}
+                profilePhoto={chatInfo.gif}
+                name={chatInfo.name}
+                chatStatus={"New chat"}
+                lastSeen={"Just now"}
+                streaks={20}
+              />
             );
-          })
-        ) : (
-          <View>
-            <Text>No matches at the moment</Text>
-          </View>
-        )
+          }}
+          renderHiddenItem={(data, rowMap) => (
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                style={[
+                  styles.rightAction,
+                  { backgroundColor: "red", alignItems: "flex-end" },
+                ]}
+                onPress={() => {
+                  alert("Delete?");
+                }}
+              >
+                <Text style={{ marginRight: 25, color: "white" }}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          disableRightSwipe={true}
+          rightOpenValue={-100}
+        />
       ) : (
-        matches
-          .filter((chat) => {
-            const chatInfo = getMatchedUserInfo(
-              chat.users,
-              auth.currentUser.uid
-            );
-            return chatInfo.firstName.includes(filterText);
-          })
-          .map((chat, index) => {
-            const conversationId = chat.id;
-            return (
-              <>
-                <ChatCard
-                  key={index}
-                  id={conversationId}
-                  profilePhoto={chat.photoUrl}
-                  name={chat.firstName}
-                  chatStatus={"New chat"}
-                  lastSeen={"Just now"}
-                  streaks={200}
-                />
-                <HorizontalRule
-                  width="100%"
-                  height={1}
-                  position={"auto"}
-                  marginTop={0}
-                />
-              </>
-            );
-          })
+        <View>
+          <Text>No matches at the moment</Text>
+        </View>
       )}
     </ScrollView>
   );
@@ -122,4 +107,38 @@ const ChatsPage = () => {
 
 export default ChatsPage;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  // container: {
+  //   height: 60,
+  //   marginVertical: 10,
+  //   backgroundColor: "#ffffff",
+  //   justifyContent: "center",
+  //   paddingLeft: 10,
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 2,
+  //   },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 3.84,
+  //   elevation: 5,
+  // },
+
+  rightAction: {
+    width: "100%",
+    marginVertical: 10,
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    height: 60,
+    backgroundColor: "#ffffff",
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // elevation: 5,
+  },
+});

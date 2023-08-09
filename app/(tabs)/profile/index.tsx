@@ -64,7 +64,8 @@ const ProfilePage = () => {
 
       <Pressable
         onPress={() => {
-          alert("pressed");
+          router.push("/(tabs)/profile/storymodal");
+          // alert("pressed");
         }}
         style={({ pressed }) => [
           { backgroundColor: pressed ? "#920" : "#818" },

@@ -1,10 +1,21 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { COLORS } from "../../constants/theme";
+import { useRouter } from "expo-router";
 
 const ProfileStoryCard = ({ storySource, storyName }) => {
+  const router = useRouter();
+
   return (
-    <View style={styles.storyCard}>
+    <Pressable
+      onPress={() => {
+        alert("Story Pressed");
+        router.push({
+          pathname: `/profile/storymodal`,
+        });
+      }}
+      style={styles.storyCard}
+    >
       <View
         style={{
           height: 80,
@@ -28,7 +39,7 @@ const ProfileStoryCard = ({ storySource, storyName }) => {
       <Text numberOfLines={1} style={{ fontSize: 10 }}>
         {storyName}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 

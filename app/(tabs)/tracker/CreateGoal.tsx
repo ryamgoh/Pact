@@ -84,8 +84,8 @@ export default function CreateGoal() {
   registerTranslation("en-GB", enGB);
   return (
     <ScrollView
+      style={{ flex: 1 }}
       contentContainerStyle={{
-        flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
       }}

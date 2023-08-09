@@ -129,7 +129,10 @@ export const generateID = async () => {
 export const setupGoals = async (data) => {
   try {
     await setDoc(doc(database, `users/${auth.currentUser.uid}/goals/${await generateID()}`), {
-      ...data, 
+      ...data,
+      pactName: "",
+      pactAvatar: "https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png",
+      milestoneCount: 1,
     });
     return true;
   } catch (e) {

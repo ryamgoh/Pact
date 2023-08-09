@@ -12,7 +12,17 @@ import { useRouter } from "expo-router";
 
 const TrackerPage = () => {
   const router = useRouter();
-  // const [data, setData] = useState([]);
+  const [goals, setGoals] = useState([]);
+
+  useEffect(() => {
+    const colRef = collection(database, "users", auth.currentUser.uid, "goals");
+    const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => doc.data());
+      setGoals(newData);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // useEffect(() => {
   //   // const colRef = collection(database, "userdetails");
@@ -24,30 +34,30 @@ const TrackerPage = () => {
 
   //   // The returned function will be called when the component unmounts
   //   return () => unsubscribe();
-  // }, []); // Empty dependency array ensures the effect runs only once
+  // }, []); 
 
-  const [matches, setMatches] = useState([]);
+  // const [matches, setMatches] = useState([]);
 
-  useEffect(
-    () =>
-      onSnapshot(
-        query(
-          collection(database, "matches"),
-          where("usersMatched", "array-contains", auth.currentUser.uid)
-        ),
-        (snapshot) => {
-          setMatches(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-          );
-        }
-      ),
-    []
-  );
+  // useEffect(
+  //   () =>
+  //     onSnapshot(
+  //       query(
+  //         collection(database, "matches"),
+  //         where("usersMatched", "array-contains", auth.currentUser.uid)
+  //       ),
+  //       (snapshot) => {
+  //         setMatches(
+  //           snapshot.docs.map((doc) => ({
+  //             id: doc.id,
+  //             ...doc.data(),
+  //           }))
+  //         );
+  //       }
+  //     ),
+  //   []
+  // );
 
-  console.log(matches);
+  // console.log(matches);
 
   return (
     <ScrollView
@@ -64,20 +74,17 @@ const TrackerPage = () => {
       >
         Track your Goals
       </Text>
-      {matches.map((item, index) => {
+      {goals.map((item, index) => {
         const conversationId = item.id;
-
-        const chatInfo = getMatchedUserInfo(item.users, auth.currentUser.uid);
-
         return (
           <TrackerCard
             id={conversationId}
             key={index}
-            profilePhoto={chatInfo.gif}
-            pactName={chatInfo.name} // Just get the data from matches collection
-            milestoneCount={2} // Will need more time to figure out how to get this
-            category={chatInfo.category}
-            subcategory={chatInfo.interest}
+            profilePhoto={item.pactAvatar}
+            pactName={item.pactName}
+            milestoneCount={item.milestoneCount} // Will need more time to figure out how to get this
+            category={item.category}
+            subcategory={item.subcategory}
             evaluationRequired={true}
           />
         );

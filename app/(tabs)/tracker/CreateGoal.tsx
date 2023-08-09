@@ -89,7 +89,7 @@ export default function CreateGoal() {
   const submitDetails = async () => {
     const data = {
       category: category,
-      interest: interest,
+      subcategory: interest,
       timeframe: timeframe,
       motivations: motivations,
       goal1: goal1,

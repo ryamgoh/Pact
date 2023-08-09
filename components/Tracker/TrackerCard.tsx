@@ -1,16 +1,17 @@
+import { COLORS, FONT, SIZES } from "../../constants";
 import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import React, { useState, useEffect } from "react";
-import { FONT, COLORS, SIZES } from "../../constants";
+import React, { useEffect, useState } from "react";
+
+import { AntDesign } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { AntDesign } from "@expo/vector-icons";
 
 interface TrackerCardProps {
   profilePhoto: string;

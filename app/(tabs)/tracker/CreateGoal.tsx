@@ -1,16 +1,23 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import { COLORS, FONT } from "../../../constants";
-import { ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 import { Stack, useRouter } from "expo-router";
-import { categories, interests, timeframes } from "../../../components/UI/dropdown";
-import { enGB, registerTranslation } from 'react-native-paper-dates';
+import {
+  categories,
+  interests,
+  timeframes,
+} from "../../../components/UI/dropdown";
+import { enGB, registerTranslation } from "react-native-paper-dates";
 import { useCallback, useState } from "react";
 
-import { DatePickerModal } from 'react-native-paper-dates';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { DatePickerModal } from "react-native-paper-dates";
+import DropDownPicker from "react-native-dropdown-picker";
 
-export default function createGoal() {
-
+export default function CreateGoal() {
   const [category, setCategory] = useState(undefined);
   const [categoryItems, setCategoryItems] = useState(categories);
   const [categoryOpen, setCategoryOpen] = useState(false);
@@ -74,10 +81,16 @@ export default function createGoal() {
   );
 
   const router = useRouter();
-  registerTranslation('en-GB', enGB);
+  registerTranslation("en-GB", enGB);
   return (
-    <ScrollView contentContainerStyle={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}>
-      <Stack.Screen options={{ headerShown: false }} />
+    <ScrollView
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "center",
+      }}
+    >
+      <Stack.Screen options={{ headerShown: true }} />
       <Text style={styles.header}>Create Your Goal</Text>
       <View style={styles.dropdown}>
         <Text style={styles.label}>Category of interest</Text>
@@ -103,7 +116,7 @@ export default function createGoal() {
       </View>
       <View style={styles.dropdown}>
         <Text style={styles.label}>Choose your timeframe</Text>
-        <DropDownPicker 
+        <DropDownPicker
           open={timeframeOpen}
           items={timeframeItems}
           setItems={setTimeframeItems}
@@ -120,7 +133,7 @@ export default function createGoal() {
           nativeID="motivations"
           onChangeText={(text) => setMotivations(text)}
           style={styles.textInput}
-          autoComplete="off"        
+          autoComplete="off"
         />
       </View>
       <Text style={styles.label}>Create your milestones</Text>
@@ -144,8 +157,12 @@ export default function createGoal() {
           onConfirm={onConfirmSingle1}
         />
         <TouchableOpacity onPress={() => setOpen1(true)}>
-          <Text style={styles.deadline}>{date1 === undefined ? "Pick Deadline" : "Change Deadline"}</Text>
-          <Text>{date1 === undefined ? "" : date1.toString().slice(4, 15)}</Text>
+          <Text style={styles.deadline}>
+            {date1 === undefined ? "Pick Deadline" : "Change Deadline"}
+          </Text>
+          <Text>
+            {date1 === undefined ? "" : date1.toString().slice(4, 15)}
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.milestone}>
@@ -168,8 +185,12 @@ export default function createGoal() {
           onConfirm={onConfirmSingle2}
         />
         <TouchableOpacity onPress={() => setOpen2(true)}>
-          <Text style={styles.deadline}>{date2 === undefined ? "Pick Deadline" : "Change Deadline"}</Text>
-          <Text>{date2=== undefined ? "" : date2.toString().slice(4, 15)}</Text>
+          <Text style={styles.deadline}>
+            {date2 === undefined ? "Pick Deadline" : "Change Deadline"}
+          </Text>
+          <Text>
+            {date2 === undefined ? "" : date2.toString().slice(4, 15)}
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.milestone}>
@@ -192,15 +213,24 @@ export default function createGoal() {
           onConfirm={onConfirmSingle3}
         />
         <TouchableOpacity onPress={() => setOpen3(true)}>
-          <Text style={styles.deadline}>{date3 === undefined ? "Pick Deadline" : "Change Deadline"}</Text>
-          <Text>{date3 === undefined ? "" : date3.toString().slice(4, 15)}</Text>
+          <Text style={styles.deadline}>
+            {date3 === undefined ? "Pick Deadline" : "Change Deadline"}
+          </Text>
+          <Text>
+            {date3 === undefined ? "" : date3.toString().slice(4, 15)}
+          </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => console.log("TODO : ADD INTO DB")} style={styles.button}>
-        <Text style={{ color: COLORS.white, fontFamily: FONT.bold, }}>Submit</Text>
+      <TouchableOpacity
+        onPress={() => console.log("TODO : ADD INTO DB")}
+        style={styles.button}
+      >
+        <Text style={{ color: COLORS.white, fontFamily: FONT.bold }}>
+          Submit
+        </Text>
       </TouchableOpacity>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -256,5 +286,5 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     marginTop: 10,
     padding: 5,
-  }
+  },
 });

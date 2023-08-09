@@ -1,6 +1,6 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
-import { COLORS, FONT } from "../../../constants";
+import { COLORS, FONT, SIZES } from "../../../constants";
 import ChatCard from "../../../components/Chats/ChatCard";
 import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
 import Styled from "../../../styles/container";
@@ -35,12 +35,12 @@ const ChatsPage = () => {
   return (
     <ScrollView
       style={Styled.MainScrollableCanvas}
-      contentContainerStyle={{ alignItems: "center", gap: 20 }}
+      contentContainerStyle={{ alignItems: "center", gap: 20, flex: 1 }}
     >
       <Text
         style={{
           fontFamily: FONT.medium,
-          fontSize: 24,
+          fontSize: SIZES.xLarge,
           fontWeight: "bold",
         }}
       >

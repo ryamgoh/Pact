@@ -51,13 +51,15 @@ const TrackerPage = () => {
 
   return (
     <ScrollView
-      contentContainerStyle={[Styled.MainScrollableCanvas, { gap: 20 }]}
+      style={Styled.MainScrollableCanvas}
+      contentContainerStyle={{ gap: 20 }}
     >
       <Text
         style={{
           fontFamily: FONT.medium,
           fontSize: 24,
           fontWeight: "bold",
+          textAlign: "center",
         }}
       >
         Track your Goals
@@ -68,8 +70,7 @@ const TrackerPage = () => {
         const chatInfo = getMatchedUserInfo(item.users, auth.currentUser.uid);
 
         return (
-          <>
-            <TrackerCard
+          <TrackerCard
             id={conversationId}
             key={index}
             profilePhoto={chatInfo.gif}
@@ -79,25 +80,29 @@ const TrackerPage = () => {
             subcategory={chatInfo.interest}
             evaluationRequired={true}
           />
-            />
-            <TouchableOpacity onPress={() => router.replace("/tracker/CreateGoal")} style={styles.add}>
-              <Text style={{ fontFamily: FONT.bold, fontWeight: "bold" }}>Add Goal</Text>
-            </TouchableOpacity>
-          </>
         );
       })}
+      <TouchableOpacity
+        onPress={() => router.push("/tracker/createGoal")}
+        style={styles.add}
+      >
+        <Text style={{ fontFamily: FONT.bold, fontWeight: "bold" }}>
+          Add Goal
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   add: {
-    width: 370,
+    width: "100%",
     textAlign: "center",
-    border: "0.5px solid black",
+    borderWidth: 2,
+    borderColor: COLORS.black,
     borderRadius: 10,
     padding: 10,
-  }
+  },
 });
 
 export default TrackerPage;

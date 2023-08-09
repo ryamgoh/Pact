@@ -4,10 +4,16 @@ import { COLORS, FONT, SIZES } from "../constants";
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: FONT.bold,
+    fontFamily: FONT.medium,
     fontWeight: "bold",
-    fontSize: SIZES.xxLarge,
+    fontSize: SIZES.xLarge,
+    textAlign: "center",
     // color: COLORS.primary,
+  },
+  subtitle: {
+    fontFamily: FONT.regular,
+    fontWeight: "medium",
+    fontSize: SIZES.large,
   },
 });
 

@@ -19,11 +19,15 @@ import ProfileStoryCards from "../../../components/Profile/ProfileStoryCards";
 const ProfilePage = () => {
   const router = useRouter();
   return (
+    // <ScrollView
+    //   contentContainerStyle={[
+    //     Styled.MainScrollableCanvas,
+    //     { alignItems: "flex-start" },
+    //   ]}
+    // >
     <ScrollView
-      contentContainerStyle={[
-        Styled.MainScrollableCanvas,
-        { alignItems: "flex-start" },
-      ]}
+      style={Styled.MainScrollableCanvas}
+      contentContainerStyle={{ alignItems: "flex-start", gap: 5 }}
     >
       <ProfileCard profilePhoto={AuthStore.getRawState().user?.photoURL} />
       <Text
@@ -45,10 +49,6 @@ const ProfilePage = () => {
       <Text style={{ fontFamily: FONT.bold }}>
         {AuthStore.getRawState().user?.uid}
       </Text>
-      <Image
-        source={AuthStore.getRawState().user?.photoURL}
-        style={{ height: 40, width: 40 }}
-      />
       <Button
         onPress={async () => {
           const resp = await appSignOut();

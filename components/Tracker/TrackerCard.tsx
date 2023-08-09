@@ -64,7 +64,7 @@ const TrackerCard = ({
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-            zIndex: 1,
+            zIndex: 100,
             left: -14,
             top: -14,
             backgroundColor: "#F17C7C",

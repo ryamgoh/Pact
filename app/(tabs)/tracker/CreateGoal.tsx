@@ -1,4 +1,3 @@
-import { Button, StyleSheet, Text, View } from "react-native";
 import { COLORS, FONT } from "../../../constants";
 import {
   ScrollView,
@@ -6,9 +5,13 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import { Stack, useRouter } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
 import {
+  academicInterests,
   categories,
-  interests,
+  emptyInterests,
+  instrumentInterests,
+  sportInterests,
   timeframes,
 } from "../../../components/UI/dropdown";
 import { enGB, registerTranslation } from "react-native-paper-dates";
@@ -16,19 +19,22 @@ import { useCallback, useState } from "react";
 
 import { DatePickerModal } from "react-native-paper-dates";
 import DropDownPicker from "react-native-dropdown-picker";
+import Toast from "react-native-toast-message";
+import { invalidGoals } from "../../../components/UI/toast";
+import { setupGoals } from "../../../store";
 
 export default function CreateGoal() {
+  
+  const router = useRouter();
+
   const [category, setCategory] = useState(undefined);
   const [categoryItems, setCategoryItems] = useState(categories);
-  const [categoryOpen, setCategoryOpen] = useState(false);
 
   const [interest, setInterest] = useState(undefined);
-  const [interestItems, setInterestItems] = useState(interests);
-  const [interestOpen, setInterestOpen] = useState(false);
+  const [interestItems, setInterestItems] = useState(emptyInterests);
 
   const [timeframe, setTimeframe] = useState(undefined);
   const [timeframeItems, setTimeframeItems] = useState(timeframes);
-  const [timeframeOpen, setTimeframeOpen] = useState(false);
 
   const [motivations, setMotivations] = useState(undefined);
 
@@ -80,7 +86,27 @@ export default function CreateGoal() {
     [setOpen3, setDate3]
   );
 
-  const router = useRouter();
+  const submitDetails = async () => {
+    const data = {
+      category: category,
+      interest: interest,
+      timeframe: timeframe,
+      motivations: motivations,
+      goal1: goal1,
+      date1: date1?.toString().slice(4, 15),
+      goal2: goal2,
+      date2: date2?.toString().slice(4, 15),
+      goal3: goal3,
+      date3: date3?.toString().slice(4, 15),
+    }
+    const resp = await setupGoals(data);
+    if (resp) {
+      router.replace("/tracker");
+    } else {
+      invalidGoals();
+    }
+  }
+
   registerTranslation("en-GB", enGB);
   return (
     <ScrollView
@@ -95,34 +121,34 @@ export default function CreateGoal() {
       <View style={styles.dropdown}>
         <Text style={styles.label}>Category of interest</Text>
         <DropDownPicker
-          open={categoryOpen}
+          open={true}
           items={categoryItems}
           setItems={setCategoryItems}
           value={category}
           setValue={setCategory}
-          setOpen={setCategoryOpen}
+          setOpen={() => true}
         />
       </View>
       <View style={styles.dropdown}>
         <Text style={styles.label}>Current interest</Text>
         <DropDownPicker
-          open={interestOpen}
-          items={interestItems}
+          open={true}
+          items={category === undefined ? emptyInterests : category === "Sports" ? sportInterests : category === "Academics" ? academicInterests : instrumentInterests}
           setItems={setInterestItems}
           value={interest}
           setValue={setInterest}
-          setOpen={setInterestOpen}
+          setOpen={() => true}
         />
       </View>
       <View style={styles.dropdown}>
         <Text style={styles.label}>Choose your timeframe</Text>
         <DropDownPicker
-          open={timeframeOpen}
+          open={true}
           items={timeframeItems}
           setItems={setTimeframeItems}
           value={timeframe}
           setValue={setTimeframe}
-          setOpen={setTimeframeOpen}
+          setOpen={() => true}
         />
       </View>
       <View style={styles.dropdown}>
@@ -222,13 +248,14 @@ export default function CreateGoal() {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        onPress={() => console.log("TODO : ADD INTO DB")}
+        onPress={submitDetails}
         style={styles.button}
       >
         <Text style={{ color: COLORS.white, fontFamily: FONT.bold }}>
           Submit
         </Text>
       </TouchableOpacity>
+      <Toast />
     </ScrollView>
   );
 }
@@ -238,7 +265,7 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     fontFamily: FONT.medium,
     fontSize: 30,
-    marginBottom: 15,
+    marginBottom: -80,
     marginTop: 30,
   },
   button: {
@@ -251,6 +278,8 @@ const styles = StyleSheet.create({
   dropdown: {
     width: 350,
     marginBottom: 40,
+    zIndex: 1000,
+    marginTop: 100,
   },
   label: {
     fontFamily: FONT.medium,

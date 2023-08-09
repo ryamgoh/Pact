@@ -83,7 +83,7 @@ const TrackerPage = () => {
         );
       })}
       <TouchableOpacity
-        onPress={() => router.push("/tracker/createGoal")}
+        onPress={() => router.push("/tracker/CreateGoal")}
         style={styles.add}
       >
         <Text style={{ fontFamily: FONT.bold, fontWeight: "bold" }}>

@@ -59,3 +59,13 @@ export const invalidGIF = () => {
     visibilityTime: 2000,
   });
 };
+
+export const invalidGoals = () => {
+  Toast.show({
+    type: 'error',
+    text1: 'Invalid Goals',
+    text2: 'Please enter valid goals',
+    autoHide: true,
+    visibilityTime: 2000,
+  });
+}

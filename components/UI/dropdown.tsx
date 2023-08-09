@@ -31,11 +31,27 @@ export const categories = [
   { label: "Instruments", value: "Instruments" },
 ];
 
-export const interests = [
+export const sportInterests = [
   { label: "Basketball", value: "Basketball" },
   { label: "Badminton", value: "Badminton" },
   { label: "Squash", value: "Squash" },
 ]
+
+export const academicInterests = [
+  { label: "Math", value: "Math" },
+  { label: "Science", value: "Science" },
+  { label: "English", value: "English" },
+];
+
+export const instrumentInterests = [
+  { label: "Piano", value: "Piano" },
+  { label: "Guitar", value: "Guitar" },
+  { label: "Violin", value: "Violin" },
+];
+
+export const emptyInterests = [
+  { label: "Select", value: "" },
+];
 
 export const timeframes = [
   { label: "1 Month", value: "1 Month" },

@@ -86,9 +86,6 @@ export const passwordResetEmail = async (email) => {
 
 export const isNewUser = async () => {
   try {
-    // const resp = await getDoc(
-    //   doc(database, "userdetails", auth.currentUser.uid)
-    // );
     const resp = await getDoc(doc(database, "users", auth.currentUser.uid));
     if (resp.exists()) {
       return false;
@@ -102,7 +99,6 @@ export const isNewUser = async () => {
 
 export const setupDetails = async (data) => {
   try {
-    // await setDoc(doc(database, "userdetails", auth.currentUser.uid), {
     await setDoc(doc(database, "users", auth.currentUser.uid), {
       ...data,
       name: auth.currentUser.displayName,
@@ -119,6 +115,21 @@ export const setupGIF = async (url) => {
   try {
     await updateDoc(doc(database, "users", auth.currentUser.uid), {
       gif: url,
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export const generateID = async () => {
+  return (Date.now().toString(36) + Math.random().toString(36).slice(2, 5)).toUpperCase();
+}
+
+export const setupGoals = async (data) => {
+  try {
+    await setDoc(doc(database, `users/${auth.currentUser.uid}/goals/${await generateID()}`), {
+      ...data, 
     });
     return true;
   } catch (e) {

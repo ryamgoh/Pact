@@ -1,23 +1,24 @@
-import { View, Text, StyleSheet } from "react-native";
-import { useState } from "react";
-import Swiper from "react-native-deck-swiper";
-import { useRef } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Entypo, AntDesign } from "@expo/vector-icons";
-import SwipeCard, { cardDataInterface } from "./SwipeCard";
-import SwipeCardBack from "./SwipeCardBack";
-import FlipCard from "react-native-flip-card";
-
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import {
-  doc,
   DocumentSnapshot,
+  doc,
   getDoc,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { database, auth } from "../../FirebaseConfig";
+import { StyleSheet, Text, View } from "react-native";
+import SwipeCard, { cardDataInterface } from "./SwipeCard";
+import { auth, database } from "../../FirebaseConfig";
+
+import FlipCard from "react-native-flip-card";
+import SwipeCardBack from "./SwipeCardBack";
+import Swiper from "react-native-deck-swiper";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import generateId from "../../lib/generateId";
+import { useRef } from "react";
 import { useRouter } from "expo-router";
+import { useState } from "react";
+
 interface SwipingScreenProps {
   candidateData: cardDataInterface[];
 }
@@ -26,13 +27,17 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
   const router = useRouter();
   const swipeRef = useRef(null);
 
+  console.log(candidateData);
+
   const swipeLeft = async (cardIndex) => {
     if (!candidateData[cardIndex]) return;
     const userSwiped = candidateData[cardIndex];
     console.log(`You PASS on ${userSwiped.name}`);
     setDoc(
       doc(database, `users/${auth.currentUser.uid}/passes/${userSwiped.id}`),
-      userSwiped
+      {
+        username: userSwiped.username,
+      }
     );
   };
 
@@ -44,7 +49,7 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
       await getDoc(doc(database, "users", auth.currentUser.uid))
     ).data();
     //check if the user swiped on you
-    getDoc(
+    await getDoc(
       doc(database, `users/${userSwiped.id}/swipes/${auth.currentUser.uid}`)
     ).then((DocumentSnapshot) => {
       if (DocumentSnapshot.exists()) {
@@ -57,7 +62,9 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
             database,
             `users/${auth.currentUser.uid}/swipes/${userSwiped.id}`
           ),
-          userSwiped
+          {
+            username: userSwiped.username,
+          }
         );
 
         //Create a match
@@ -68,11 +75,13 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
             generateId(auth.currentUser.uid, userSwiped.id)
           ),
           {
-            users: {
-              [auth.currentUser.uid]: loggedInProfile,
-              [userSwiped.id]: userSwiped,
-            },
-            usersMatched: [auth.currentUser.uid, userSwiped.id],
+            // users: {
+            //   [auth.currentUser.uid]: loggedInProfile,
+            //   [userSwiped.id]: userSwiped,
+            // },
+            // usersMatched: [auth.currentUser.uid, userSwiped.id],
+            pact1: auth.currentUser.uid,
+            pact2: userSwiped.id,
             timestamp: serverTimestamp(),
           }
         );
@@ -83,14 +92,16 @@ const SwipingScreen = ({ candidateData }: SwipingScreenProps) => {
         });
       } else {
         //user has swiped as first interaction between the two or didnt get swiped on
-        console.log("fdsfsd");
+        // console.log("fdsfsd");
 
         setDoc(
           doc(
             database,
             `users/${auth.currentUser.uid}/swipes/${userSwiped.id}`
           ),
-          userSwiped
+          {
+            username: userSwiped.username,
+          }
         );
       }
     });

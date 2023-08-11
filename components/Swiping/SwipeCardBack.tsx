@@ -1,42 +1,64 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import HorizontalRule from "../General/HorizontalRule";
-import MilestoneTab from "./MilestoneTab";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { auth, database } from "../../FirebaseConfig";
+import { collection, onSnapshot } from "firebase/firestore";
+
 import { FONT } from "../../constants";
+import HorizontalRule from "../General/HorizontalRule";
+import { LinearGradient } from "expo-linear-gradient";
+import MilestoneTab from "./MilestoneTab";
+import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import { getRecentGoal } from "../../store";
+
 const SwipeCardBack = ({ data }: any) => {
-  console.log(data?.name);
-  let startDate = "10 Jul 23"; // Date of Pact Creation
+
+  const [milestoneData, setMilestoneData] = React.useState(undefined);
+
+  React.useEffect(() => {
+    // const colRef = collection(database, "users", data.id, "goals");
+    // const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
+    //   const newData = querySnapshot.docs.map((doc) => doc.data());
+    //   setMilestoneData(newData);
+    // });
+    getMilestones();
+
+    // return () => unsubscribe();
+  }, []); 
+
+  const getMilestones = async () => {
+    setMilestoneData(await getRecentGoal(data.id));
+  }
+
+  // let startDate = "10 Jul 23"; // Date of Pact Creation
 
   let motivations = data.bio ? data.bio : "No bio available";
-  // `Long time Lakers fan here trying to level up my shooting skills. Currently very inconsistent with my shots. If you feel the same way, lets practice together!`;
+  // `Long time Lakers fan here trying to level up my shoot   ing skills. Currently very inconsistent with my shots. If you feel the same way, lets practice together!`;
 
-  let milestoneData = [
-    {
-      milestoneNumber: 1,
-      description: "Learn how to layup",
-      detailedDescription:
-        "Perform 10 consecutive layups flawlessly for 5 sessions ",
-      date: "10 Aug 23",
-      completed: true,
-    },
-    {
-      milestoneNumber: 2,
-      description: "Learn how to 2-point shot",
-      detailedDescription:
-        "Perform 10 consecutive 2-pointers flawlessly for 5 sessions ",
-      date: "10 Dec 23",
-      completed: false,
-    },
-    {
-      milestoneNumber: 3,
-      description: "Learn how to throw a ball like Steph Curry",
-      detailedDescription: "Become basketball god and win the NBA championship",
-      date: "10 Jan 24",
-      completed: false,
-    },
-  ];
+  // let milestoneData = [
+  //   {
+  //     milestoneNumber: 1,
+  //     description: "Learn how to layup",
+  //     detailedDescription:
+  //       "Perform 10 consecutive layups flawlessly for 5 sessions ",
+  //     date: "10 Aug 23",
+  //     completed: true,
+  //   },
+  //   {
+  //     milestoneNumber: 2,
+  //     description: "Learn how to 2-point shot",
+  //     detailedDescription:
+  //       "Perform 10 consecutive 2-pointers flawlessly for 5 sessions ",
+  //     date: "10 Dec 23",
+  //     completed: false,
+  //   },
+  //   {
+  //     milestoneNumber: 3,
+  //     description: "Learn how to throw a ball like Steph Curry",
+  //     detailedDescription: "Become basketball god and win the NBA championship",
+  //     date: "10 Jan 24",
+  //     completed: false,
+  //   },
+  // ];
 
   return (
     <LinearGradient
@@ -69,7 +91,7 @@ const SwipeCardBack = ({ data }: any) => {
             borderRadius: 20,
           }}
         >
-          {data.category}
+          {milestoneData?.category}
         </Text>
         <Image
           source={{ uri: data.profilePic }}
@@ -89,9 +111,30 @@ const SwipeCardBack = ({ data }: any) => {
             <Text style={{ fontWeight: "700", color: "white", fontSize: 12 }}>
               Start
             </Text>
-            <Text style={{ color: "white", fontSize: 8 }}>{startDate}</Text>
+            <Text style={{ color: "white", fontSize: 8 }}>{milestoneData?.date1}</Text>
           </View>
-          {milestoneData.map((milestone, index) => (
+          <MilestoneTab
+            milestoneNumber={1}
+            description={milestoneData?.goal1}
+            detailedDescription={milestoneData?.goal1}
+            date={milestoneData?.date1}
+            completed={milestoneData?.milestoneCount > 0}
+          />
+          <MilestoneTab
+            milestoneNumber={2}
+            description={milestoneData?.goal2}
+            detailedDescription={milestoneData?.goal2}
+            date={milestoneData?.date2}
+            completed={milestoneData?.milestoneCount > 1}
+          />
+          <MilestoneTab
+            milestoneNumber={3}
+            description={milestoneData?.goal3}
+            detailedDescription={milestoneData?.goal3}
+            date={milestoneData?.date3}
+            completed={milestoneData?.milestoneCount > 2}
+          />
+          {/* {milestoneData.map((milestone, index) => (
             <MilestoneTab
               key={index}
               milestoneNumber={milestone.milestoneNumber}
@@ -100,7 +143,7 @@ const SwipeCardBack = ({ data }: any) => {
               date={milestone.date}
               completed={milestone.completed}
             />
-          ))}
+          ))} */}
         </ScrollView>
       </View>
       <View style={styles.cardSection}>
@@ -122,8 +165,7 @@ const SwipeCardBack = ({ data }: any) => {
             color: "white",
           }}
         >
-          {motivations}
-          {/* To Change */}
+          {milestoneData?.motivations}
         </Text>
       </View>
     </LinearGradient>

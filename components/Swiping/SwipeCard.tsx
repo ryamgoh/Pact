@@ -1,4 +1,8 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+
+import { getGIFByID } from "../GIFs/GIF";
+import { getRecentGoal } from "../../store";
 
 export interface cardDataInterface {
   id: number;
@@ -8,8 +12,32 @@ export interface cardDataInterface {
   interest: string;
   bio: string;
   category: string;
+  username: string;
+  profilePic: string;
 }
+
 const SwipeCard = ({ card }: { card: cardDataInterface }) => {
+
+  const [gif, setGIF] = useState([]);
+  const [goal, setGoal] = useState(undefined);
+
+  useEffect(() => {
+    getLink();
+    getGoal();
+  }, []);
+
+  const getLink = async () => {
+    setGIF(await getGIFByID(card.gif));
+  }
+
+  const getGoal = async () => {
+    setGoal(await getRecentGoal(card.id));
+  }
+
+  if (goal === undefined) {
+    return <View><Text>Loading....</Text></View>
+  }
+
   return (
     <View
       key={card.id}
@@ -20,7 +48,7 @@ const SwipeCard = ({ card }: { card: cardDataInterface }) => {
         position: "relative",
       }}
     >
-      <Image source={{ uri: card.gif }} style={styles.cardLayout} />
+      <Image source={{ uri: gif.length === 0 ? "" : gif[0].media_formats.tinygif.url }} style={styles.cardLayout} />
       <View style={[styles.bottomBar, styles.cardShadow]}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.textStyle}>{card.name}</Text>
@@ -40,7 +68,7 @@ const SwipeCard = ({ card }: { card: cardDataInterface }) => {
               fontStyle: "italic",
             }}
           >
-            {card.interest} | {card.category}
+            {goal.category} | {goal.subcategory}
           </Text>
         </Text>
         <Text
@@ -68,9 +96,9 @@ const styles = StyleSheet.create({
   },
   cardLayout: {
     backgroundColor: "white",
-    height: 600,
+    height: 200,
     borderRadius: 20,
-    position: "relative",
+    marginTop: 100,
   },
   bottomBar: {
     backgroundColor: "white",

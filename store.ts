@@ -1,4 +1,4 @@
-import { DocumentSnapshot, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { DocumentSnapshot, collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { Store, registerInDevtools } from "pullstate";
 import { app, auth, database } from "./FirebaseConfig";
 import {
@@ -132,11 +132,42 @@ export const setupGoals = async (data) => {
       ...data,
       pactName: "",
       pactAvatar: "https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png",
-      milestoneCount: 1,
+      milestoneCount: 0,
     });
     return true;
   } catch (e) {
     return false;
+  }
+}
+
+export const checkGoals = async (id) => {
+  try {
+    const goalsQuerySnapshot = await getDocs(collection(database, "users", id, "goals"));
+    return goalsQuerySnapshot.docs.length !== 0;
+  } catch (err) {
+    return false;
+  }
+}
+
+export const getRecentGoal = async (id) => {
+  try {
+    const goalsQuerySnapshot = await getDocs(collection(database, "users", id, "goals"));
+    const goals = goalsQuerySnapshot.docs.map((doc) => doc.data());
+    return goals[goals.length - 1];
+  } catch (err) {
+    return {
+      category: "",
+      date1: "",
+      date2: "",
+      date3: "",
+      goal1: "",
+      goal2: "",
+      goal3: "",
+      milestoneCount: 0,
+      motivations: "No Motivations Set",
+      subcategory: "",
+      timeframe: "",
+    }
   }
 }
 

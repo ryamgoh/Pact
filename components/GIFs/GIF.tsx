@@ -20,3 +20,13 @@ export async function searchGIF(keyword) {
     return [];
   }
 }
+
+export async function getGIFByID(id) {
+  try {
+    return await fetch(`https://tenor.googleapis.com/v2/posts?ids=${id}&key=${tenorAPI}`)
+    .then(res => res.json())
+    .then(data => data.results);
+  } catch (err) {
+    return [];
+  }
+}

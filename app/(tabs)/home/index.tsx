@@ -1,14 +1,17 @@
-import { SafeAreaView } from "react-native";
-import SwipingScreen from "../../../components/Swiping/SwipingScreen";
-import { useState, useEffect } from "react";
 import { auth, database } from "../../../FirebaseConfig";
 import {
   collection,
+  getDocs,
   onSnapshot,
   query,
   where,
-  getDocs,
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import { SafeAreaView } from "react-native";
+import SwipingScreen from "../../../components/Swiping/SwipingScreen";
+import { checkGoals } from "../../../store";
+import { set } from "react-native-reanimated";
 
 const collectionRef = collection(database, "users");
 
@@ -32,15 +35,23 @@ const HomePage = () => {
           collectionRef,
           where("id", "not-in", [...passedUserIds, ...swipedUserIds])
         ),
-        (snapshot) => {
-          setProfiles(
+        async (snapshot) => {
+          const result =
             snapshot.docs
               .filter((doc) => doc.id !== auth?.currentUser?.uid)
               .map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
-              }))
-          );
+              }));
+          const filtered = [];
+          for (let i = 0; i < result.length; i++) {
+            const user = result[i];
+            const goals = await checkGoals(user.id);
+            if (goals) {
+              filtered.push(user);
+            }
+          }
+          setProfiles(filtered);
         }
       );
     };

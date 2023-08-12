@@ -1,44 +1,64 @@
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import React, { useState, useEffect } from "react";
 import { COLORS, FONT, SIZES } from "../../../constants";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import { auth, database } from "../../../FirebaseConfig";
+import { collection, onSnapshot, or, query, where } from "firebase/firestore";
+
 import ChatCard from "../../../components/Chats/ChatCard";
 import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
-import Styled from "../../../styles/container";
 import HorizontalRule from "../../../components/General/HorizontalRule";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { database, auth } from "../../../FirebaseConfig";
-import getMatchedUserInfo from "../../../lib/getMatchedUserInfo";
+import Styled from "../../../styles/container";
 import { SwipeListView } from "react-native-swipe-list-view";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { getMatchedInfo } from "../../../store";
+import getMatchedUserInfo from "../../../lib/getMatchedUserInfo";
 
 const ChatsPage = () => {
   const [matches, setMatches] = useState([]);
   const [filterText, setFilterText] = useState("");
 
-  useEffect(
-    () =>
-      onSnapshot(
-        query(
-          collection(database, "matches"),
-          where("usersMatched", "array-contains", auth.currentUser.uid)
-        ),
-        (snapshot) => {
-          setMatches(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-          );
-        }
+  const getMatches = async () => {
+    onSnapshot(
+      query(
+        collection(database, "matches"),
+        or(
+          where("pact1", "==", auth.currentUser.uid), 
+          where("pact2", "==", auth.currentUser.uid)
+          )
       ),
-    []
-  );
+      (snapshot) => {
+        setMatches(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+      }
+    );
+  }
+
+  const mapMatches = async () => {
+    for (let i = 0; i < matches.length; i++) {
+      const match = matches[i];
+      const otherUser = await getMatchedInfo(match.pact1, match.pact2);
+      matches[i] = {matchID: match.id, otherUser: otherUser}
+      console.log(match);
+      console.log(otherUser);
+    };
+  }
+
+  useEffect(
+    () => {
+      getMatches();
+      mapMatches();
+    }, []);
 
   return (
     <ScrollView
@@ -55,23 +75,18 @@ const ChatsPage = () => {
         Chat
       </Text>
       <ChatsSearchBar filterText={filterText} setFilterText={setFilterText} />
-
       {matches ? (
         <SwipeListView
           style={{ width: "100%" }}
           data={matches}
           renderItem={(chat, index) => {
-            const conversationId = chat.item.id;
-
-            const chatInfo = getMatchedUserInfo(
-              chat.item.users,
-              auth.currentUser.uid
-            );
+            console.log(chat);
+            // const conversationId = chat.item.id;
             return (
               <ChatCard
-                id={conversationId}
-                profilePhoto={chatInfo.gif}
-                name={chatInfo.name}
+                id={chat.item.matchID}
+                profilePhoto={""}
+                name={"Hello"}
                 chatStatus={"New chat"}
                 lastSeen={"Just now"}
                 streaks={20}

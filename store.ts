@@ -171,4 +171,27 @@ export const getRecentGoal = async (id) => {
   }
 }
 
+export const getMatchedInfo = async (id1, id2) => {
+  try {
+    let other = "";
+    if (id1 === auth.currentUser.uid) {
+      other = id2;
+    } else {
+      other = id1;
+    }
+    const snapshot = await getDoc(doc(database, "users", other));
+    return snapshot.data();
+  } catch (err) {
+    return {
+      age: "",
+      name: "",
+      profilePic: "",
+      bio: "",
+      username: "",
+      id: "",
+      gif: "",
+    }
+  }
+};
+
 registerInDevtools({ AuthStore });

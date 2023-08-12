@@ -31,7 +31,7 @@ const SwipeCardBack = ({ data }: any) => {
 
   // let startDate = "10 Jul 23"; // Date of Pact Creation
 
-  let motivations = data.bio ? data.bio : "No bio available";
+  // let motivations = data.bio ? data.bio : "No bio available";
   // `Long time Lakers fan here trying to level up my shoot   ing skills. Currently very inconsistent with my shots. If you feel the same way, lets practice together!`;
 
   // let milestoneData = [

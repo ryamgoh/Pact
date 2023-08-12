@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import React from "react";
-import { FONT, images, COLORS } from "../../constants";
-import icons from "../../constants/icons";
+import { COLORS, FONT, images } from "../../constants";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+
 import GrayDot from "../General/GrayDot";
-import { useRouter } from "expo-router";
 import HorizontalRule from "../General/HorizontalRule";
+import React from "react";
+import icons from "../../constants/icons";
+import { useRouter } from "expo-router";
 
 interface ChatCardProps {
   profilePhoto: string;
@@ -15,7 +16,7 @@ interface ChatCardProps {
   id: number;
 }
 const ChatCard = ({
-  profilePhoto = "https://i.imgur.com/1O1moj9.png",
+  profilePhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/LeBron_James_%2851959977144%29_%28cropped2%29.jpg/640px-LeBron_James_%2851959977144%29_%28cropped2%29.jpg",
   name = "Name",
   chatStatus,
   lastSeen,
@@ -24,7 +25,7 @@ const ChatCard = ({
 }: ChatCardProps) => {
   const router = useRouter();
 
-  console.log("chatcarddddd" + chatStatus);
+  // console.log("chatcarddddd" + chatStatus);
 
   return (
     <>

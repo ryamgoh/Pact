@@ -10,55 +10,54 @@ import {
 import React, { useEffect, useState } from "react";
 import { auth, database } from "../../../FirebaseConfig";
 import { collection, onSnapshot, or, query, where } from "firebase/firestore";
+import { getChat, getMatchedInfo } from "../../../store";
 
 import ChatCard from "../../../components/Chats/ChatCard";
 import ChatsSearchBar from "../../../components/Chats/ChatsSearchBar";
 import HorizontalRule from "../../../components/General/HorizontalRule";
 import Styled from "../../../styles/container";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
-import { getMatchedInfo } from "../../../store";
+import generateId from "../../../lib/generateId";
 import getMatchedUserInfo from "../../../lib/getMatchedUserInfo";
 
 const ChatsPage = () => {
   const [matches, setMatches] = useState([]);
   const [filterText, setFilterText] = useState("");
+  const [again, setAgain] = useState(0);
+  const [chats, setChats] = useState([]);
 
-  const getMatches = async () => {
-    onSnapshot(
-      query(
-        collection(database, "matches"),
-        or(
-          where("pact1", "==", auth.currentUser.uid), 
-          where("pact2", "==", auth.currentUser.uid)
-          )
-      ),
-      (snapshot) => {
-        setMatches(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-        );
-      }
-    );
+  const getChats = async () => {
+    setMatches(await getChat());
+    if (again != 1) {
+      setAgain(1);
+    }
   }
+
+  const checkChat = (id1, id2, chats) => {
+    const id = generateId(id1, id2);
+    for (let i = 0; i < chats.length; i++) {
+      if (chats[i].matchID === id) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   const mapMatches = async () => {
     for (let i = 0; i < matches.length; i++) {
       const match = matches[i];
       const otherUser = await getMatchedInfo(match.pact1, match.pact2);
-      matches[i] = {matchID: match.id, otherUser: otherUser}
-      console.log(match);
-      console.log(otherUser);
+      if (!checkChat(match.pact1, match.pact2, chats)) {
+        chats.push({matchID: generateId(match.pact1, match.pact2), otherUser: otherUser})
+      }
     };
   }
 
   useEffect(
     () => {
-      getMatches();
+      getChats();
       mapMatches();
-    }, []);
+    }, [again]);
 
   return (
     <ScrollView
@@ -75,18 +74,16 @@ const ChatsPage = () => {
         Chat
       </Text>
       <ChatsSearchBar filterText={filterText} setFilterText={setFilterText} />
-      {matches ? (
+      {chats ? (
         <SwipeListView
           style={{ width: "100%" }}
-          data={matches}
+          data={chats}
           renderItem={(chat, index) => {
-            console.log(chat);
-            // const conversationId = chat.item.id;
             return (
               <ChatCard
                 id={chat.item.matchID}
-                profilePhoto={""}
-                name={"Hello"}
+                profilePhoto={chat.item.otherUser.profilePic === undefined ? "https://static.vecteezy.com/system/resources/previews/001/826/221/original/progress-loading-bar-buffering-download-upload-and-loading-icon-vector.jpg" : chat.item.otherUser.profilePic}
+                name={chat.item.otherUser === undefined ? "Loading..." : chat.item.otherUser.name}
                 chatStatus={"New chat"}
                 lastSeen={"Just now"}
                 streaks={20}

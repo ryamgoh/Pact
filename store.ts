@@ -1,4 +1,4 @@
-import { DocumentSnapshot, collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { DocumentSnapshot, collection, doc, getDoc, getDocs, or, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { Store, registerInDevtools } from "pullstate";
 import { app, auth, database } from "./FirebaseConfig";
 import {
@@ -169,6 +169,17 @@ export const getRecentGoal = async (id) => {
       timeframe: "",
     }
   }
+}
+
+export const getChat = async () => {
+  const queryRef = query(
+    collection(database, "matches"),
+    or(
+      where("pact1", "==", auth.currentUser.uid), 
+      where("pact2", "==", auth.currentUser.uid)
+      )
+  );
+  return await getDocs(queryRef).then((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()));
 }
 
 export const getMatchedInfo = async (id1, id2) => {
